@@ -6,7 +6,7 @@ Construir uma API usando Phoenix (elixir) e banco de dados MySQL visando permiti
 
 A modelagem deverá utilizar apenas uma entidade (Entity), que poderá representar qualquer nível da estrutura hierárquica.
 
-## Tipos:
+### Tipos:
 
 As entidades serão identificadas pelos seguintes tipos:
 
@@ -14,7 +14,7 @@ Network - é o mais alto nível permitido para criação de entidades, represent
 School - representa uma escola, podendo ou não estar relacionada a uma rede;
 Class - representa uma turma e deve obrigatoriamente ser relacionado a uma escola.
 
-## Atributos:
+### Atributos:
 
 name:  nome;
 entity_type: tipo da entidade;
@@ -25,12 +25,13 @@ parent_id: identificador da entidade antecessora na hierarquia.
 
 Alguns exemplos de requisições e retornos esperados seguem a seguir.
 
-## Criação de uma entidade:
+### Criação de uma entidade:
 
 No exemplo abaixo uma escola sem um antecessor hierárquico está sendo criado.
 
 ### Request:
 
+```
 POST /api/v2/partners/entities
 Headers:
 Content-Type:application/json
@@ -41,9 +42,10 @@ Body:
   "inep": "123456",
   "parent_id": null
 }
-
+```
 ### Response:
 
+```
 Headers:
 Content-Type:application/json; charset=utf-8
 Body:
@@ -57,6 +59,7 @@ Body:
     "subtree_ids": []
   }
 }
+```
 
 * A chave subtree_ids deverá trazer uma lista com os IDs de todas as entidades relacionadas à entidade retornada.
 
@@ -64,14 +67,17 @@ Exibição de uma entidade:
 
 ### Request
 
+```
 GET /api/v2/partners/entities/id-da-entidade
 Headers:
 Content-Type:application/json
 Parameters:
 id: integer - ex: 2
+```
 
 ### Response
 
+```
 Headers:
 Content-Type:application/json; charset=utf-8
 Body:
@@ -85,11 +91,13 @@ Body:
     "subtree_ids": [3, 4]
   }
 }
+```
 
 Edição de uma entidade:
 
 ### Request:
 
+```
 PUT /api/v2/partners/entities/id-da-entidade
 Headers:
 Content-Type:application/json
@@ -102,9 +110,11 @@ Body:
   "inep": "789123",
   "parent_id": null
 }
+```
 
 ### Response:
 
+```
 Headers:
 Content-Type:application/json; charset=utf-8
 Body:
@@ -118,6 +128,7 @@ Body:
     "subtree_ids": [3, 4]
   }
 }
+```
 
 ## Requisitos mínimos:
 
