@@ -231,17 +231,3 @@ basta ir até o navegador e acessar a página:
 ```
 http://localhost:4000/dashboard
 ```
-
-# Serviço para recuperar as informações do github e enviar com 1 dia de difenreça:
-
-Quando o ambiente estiver funcionando corretamente, ir até o navegador e acessar:
-
-```
-http://localhost:4000/api/github/jxw1102/Projet-merou2
-```
-
-A requisição irá:
-  - Fazer uma chamada assincrona:
-    - Fazer uma requisição para o Github para buscar as informações necessárias
-    - Usar o plugin Oban para agendar o envio para o webhook para 24h depois, passando as informações obtidas na api do githubs
-  - Retornar status 200
