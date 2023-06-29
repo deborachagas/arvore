@@ -16,10 +16,10 @@ As entidades serão identificadas pelos seguintes tipos:
 
 ### Atributos:
 
-name:  nome;
-entity_type: tipo da entidade;
-inep: código INEP, usado apenas para entity_type com valor school.
-parent_id: identificador da entidade antecessora na hierarquia.
+- name: nome;
+- entity_type: tipo da entidade;
+- inep: código INEP, usado apenas para entity_type com valor school.
+- parent_id: identificador da entidade antecessora na hierarquia.
 
 * A entidade mais alta da hierarquia (network ou school), terá parent_id nulo.
 
