@@ -6,7 +6,7 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :arvore, Arvore.Repo,
-  username: "mysql",
+  username: "root",
   password: "mysql",
   database: "arvore_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
@@ -19,4 +19,4 @@ config :arvore, ArvoreWeb.Endpoint,
   server: false
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning

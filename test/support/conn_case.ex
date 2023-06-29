@@ -24,6 +24,8 @@ defmodule ArvoreWeb.ConnCase do
       import Phoenix.ConnTest
       import ArvoreWeb.ConnCase
 
+      import Arvore.Factory
+
       alias ArvoreWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing

@@ -1,12 +1,17 @@
 defmodule Arvore.Repo.Migrations.SeedEntityType do
   use Ecto.Migration
 
-  alias Arvore.{EntityType, Repo}
-  @types ["Network", "School", "Class"]
+  alias Arvore.{Partners.EntityType, Repo}
 
-  def change do
-    for name <- @types do
-      Repo.insert!(%EntityType{name: name})
+  @types [{"network", "Network"}, {"school", "School"}, {"class", "Class"}]
+
+  def up do
+    for {id, name} <- @types do
+      Repo.insert!(%EntityType{id: id, name: name})
     end
+  end
+
+  def down do
+    Repo.delete_all(EntityType)
   end
 end

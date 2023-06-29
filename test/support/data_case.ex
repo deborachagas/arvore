@@ -24,6 +24,8 @@ defmodule Arvore.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Arvore.DataCase
+
+      import Arvore.Factory
     end
   end
 

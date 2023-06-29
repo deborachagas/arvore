@@ -12,7 +12,7 @@ defmodule ArvoreWeb.FallbackController do
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)
-    |> put_view(Arvore.ChangesetView)
+    |> put_view(ArvoreWeb.ChangesetView)
     |> render("error.json", changeset: changeset)
   end
 
