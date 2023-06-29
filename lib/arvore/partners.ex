@@ -23,6 +23,7 @@ defmodule Arvore.Partners do
 
   """
   def get_entity(nil), do: nil
+  def get_entity(""), do: nil
   def get_entity(id), do: Repo.get(Entity, id)
 
   @doc """
@@ -59,7 +60,7 @@ defmodule Arvore.Partners do
   """
 
   def update_entity(%Entity{} = entity, attrs) do
-    parent = get_entity(attrs["id"])
+    parent = get_entity(attrs["parent_id"])
 
     entity
     |> Entity.changeset(attrs, parent)

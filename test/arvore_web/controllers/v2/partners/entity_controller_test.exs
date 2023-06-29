@@ -57,47 +57,59 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
     end
   end
 
-  # describe "edit entity" do
-  #   setup [:create_entity]
+  describe "update entity" do
+    setup do
+      {:ok, entity: insert(:entity)}
+    end
 
-  #   test "renders form for editing chosen entity", %{conn: conn, entity: entity} do
-  #     conn = get(conn, Routes.entity_path(conn, :edit, entity))
-  #     assert html_response(conn, 200) =~ "Edit Entity"
-  #   end
-  # end
+    test "redirects when data is valid", %{conn: conn, entity: entity} do
+      update_attrs = %{
+        "name" => "Teste update",
+        "entity_type" => "school",
+        "inep" => "789123",
+        "parent_id" => nil
+      }
 
-  # describe "update entity" do
-  #   setup [:create_entity]
+      response =
+        conn
+        |> put(Routes.entity_path(conn, :update, entity.id, update_attrs))
+        |> json_response(:ok)
 
-  #   test "redirects when data is valid", %{conn: conn, entity: entity} do
-  #     conn = put(conn, Routes.entity_path(conn, :update, entity), entity: @update_attrs)
-  #     assert redirected_to(conn) == Routes.entity_path(conn, :show, entity)
+      assert response["data"]["name"] == "Teste update"
+      assert response["data"]["entity_type"] == "school"
+      assert response["data"]["inep"] == "789123"
+      assert response["data"]["parent_id"] == nil
+    end
 
-  #     conn = get(conn, Routes.entity_path(conn, :show, entity))
-  #     assert html_response(conn, 200)
-  #   end
+    test "renders errors when entity not found", %{conn: conn} do
+      response =
+        conn
+        |> put(Routes.entity_path(conn, :update, 2, %{}))
+        |> json_response(:not_found)
 
-  #   test "renders errors when data is invalid", %{conn: conn, entity: entity} do
-  #     conn = put(conn, Routes.entity_path(conn, :update, entity), entity: @invalid_attrs)
-  #     assert html_response(conn, 200) =~ "Edit Entity"
-  #   end
-  # end
+      assert response == %{"error" => "Not found"}
+    end
 
-  # describe "delete entity" do
-  #   setup [:create_entity]
+    test "renders errors when data is invalid", %{conn: conn, entity: entity} do
+      invalid_attrs = %{
+        "name" => nil,
+        "entity_type" => "class",
+        "parent_id" => nil,
+        "inep" => "1123"
+      }
 
-  #   test "deletes chosen entity", %{conn: conn, entity: entity} do
-  #     conn = delete(conn, Routes.entity_path(conn, :delete, entity))
-  #     assert redirected_to(conn) == Routes.entity_path(conn, :index)
+      response =
+        conn
+        |> put(Routes.entity_path(conn, :update, entity.id, invalid_attrs))
+        |> json_response(:unprocessable_entity)
 
-  #     assert_error_sent 404, fn ->
-  #       get(conn, Routes.entity_path(conn, :show, entity))
-  #     end
-  #   end
-  # end
-
-  # defp create_entity(_) do
-  #   entity = fixture(:entity)
-  #   %{entity: entity}
-  # end
+      assert response == %{
+               "errors" => %{
+                 "inep" => ["inep only for entity type school"],
+                 "parent_id" => ["invalid entity parent type"],
+                 "name" => ["can't be blank"]
+               }
+             }
+    end
+  end
 end

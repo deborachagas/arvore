@@ -22,16 +22,14 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
   end
 
   def update(conn, entity_params) do
-    entity = Partners.get_entity(entity_params["id"])
-
-    # case Partners.update_entity(entity, entity_params) do
-    #   {:ok, entity} ->
-    #     conn
-    #     |> put_flash(:info, "Entity updated successfully.")
-    #     |> redirect(to: Routes.entity_path(conn, :show, entity))
-
-    #   {:error, %Ecto.Changeset{} = changeset} ->
-    #     render(conn, "edit.json", entity: entity, changeset: changeset)
-    # end
+    with %Entity{} = entity <- Partners.get_entity(entity_params["id"]),
+         {:ok, entity} <- Partners.update_entity(entity, entity_params) do
+      conn
+      |> put_status(:ok)
+      |> render("show.json", entity: entity)
+    else
+      nil -> {:error, :not_found}
+      {:error, changeset} -> {:error, changeset}
+    end
   end
 end
