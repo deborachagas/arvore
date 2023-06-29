@@ -23,13 +23,13 @@ As entidades serão identificadas pelos seguintes tipos:
 
 A entidade mais alta da hierarquia (network ou school), terá parent_id nulo.
 
-Alguns exemplos de requisições e retornos esperados seguem a seguir.
+## Alguns exemplos de requisições e retornos esperados seguem a seguir.
 
 ### Criação de uma entidade:
 
 No exemplo abaixo uma escola sem um antecessor hierárquico está sendo criado.
 
-### Request:
+* Request:
 
 ```
 POST /api/v2/partners/entities
@@ -43,7 +43,8 @@ Body:
   "parent_id": null
 }
 ```
-### Response:
+
+* Response:
 
 ```
 Headers:
@@ -61,11 +62,11 @@ Body:
 }
 ```
 
-* A chave subtree_ids deverá trazer uma lista com os IDs de todas as entidades relacionadas à entidade retornada.
+A chave subtree_ids deverá trazer uma lista com os IDs de todas as entidades relacionadas à entidade retornada.
 
-Exibição de uma entidade:
+### Exibição de uma entidade:
 
-### Request
+* Request
 
 ```
 GET /api/v2/partners/entities/id-da-entidade
@@ -75,7 +76,7 @@ Parameters:
 id: integer - ex: 2
 ```
 
-### Response
+* Response
 
 ```
 Headers:
@@ -93,9 +94,9 @@ Body:
 }
 ```
 
-Edição de uma entidade:
+### Edição de uma entidade:
 
-### Request:
+* Request:
 
 ```
 PUT /api/v2/partners/entities/id-da-entidade
@@ -112,7 +113,7 @@ Body:
 }
 ```
 
-### Response:
+* Response:
 
 ```
 Headers:
