@@ -21,7 +21,7 @@ As entidades serão identificadas pelos seguintes tipos:
 - inep: código INEP, usado apenas para entity_type com valor school.
 - parent_id: identificador da entidade antecessora na hierarquia.
 
-* A entidade mais alta da hierarquia (network ou school), terá parent_id nulo.
+A entidade mais alta da hierarquia (network ou school), terá parent_id nulo.
 
 Alguns exemplos de requisições e retornos esperados seguem a seguir.
 
