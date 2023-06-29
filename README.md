@@ -10,9 +10,9 @@ A modelagem deverá utilizar apenas uma entidade (Entity), que poderá represent
 
 As entidades serão identificadas pelos seguintes tipos:
 
-Network - é o mais alto nível permitido para criação de entidades, representando uma rede de escolas - Não é um nível obrigatório;
-School - representa uma escola, podendo ou não estar relacionada a uma rede;
-Class - representa uma turma e deve obrigatoriamente ser relacionado a uma escola.
+- Network - é o mais alto nível permitido para criação de entidades, representando uma rede de escolas - Não é um nível obrigatório;
+- School - representa uma escola, podendo ou não estar relacionada a uma rede;
+- Class - representa uma turma e deve obrigatoriamente ser relacionado a uma escola.
 
 ### Atributos:
 
