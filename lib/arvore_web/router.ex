@@ -24,9 +24,7 @@ defmodule ArvoreWeb.Router do
   end
 
   scope "/", ArvoreWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
+    get "/health", HealthCheckController, :health
   end
 
   # Other scopes may use custom stacks.

@@ -184,7 +184,7 @@ docker-compose up -d
 basta ir até o navegador e acessar a página:
 
 ```
-http://localhost:4000/dashboard
+http://localhost:4000/health
 ```
 
 ## Rodar o projeto localmente:
@@ -229,5 +229,5 @@ mix phx.server
 basta ir até o navegador e acessar a página:
 
 ```
-http://localhost:4000/dashboard
+http://localhost:4000/health
 ```
