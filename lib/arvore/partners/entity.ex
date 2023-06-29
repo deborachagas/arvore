@@ -1,4 +1,8 @@
 defmodule Arvore.Partners.Entity do
+  @moduledoc """
+  Schema Entity.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

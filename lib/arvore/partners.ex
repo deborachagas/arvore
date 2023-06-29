@@ -19,7 +19,10 @@ defmodule Arvore.Partners do
       %Entity{}
 
       iex> get_entity(456)
-      ** (Ecto.NoResultsError)
+      nil
+
+      iex> get_entity(nil)
+      nil
 
   """
   def get_entity(nil), do: nil
