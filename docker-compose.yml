@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  phoenix:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./app
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_HOST=db_mysql
+      - SECRET_KEY_BASE=P8CRRzaJTby7wdq2krP/pPl4cuNDeqO8EDfOAdEUEe9sTUfIImvg8bFCnEguLyB7
+    depends_on:
+      - db_mysql
+  db_mysql:
+    image: "mysql:8.0.33"
+    container_name: "db_mysql"
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+    
