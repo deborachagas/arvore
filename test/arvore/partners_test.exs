@@ -136,7 +136,7 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_network)
 
-      assert ["invalid entity parent type"] == errors_on(changeset).parent_id
+      assert ["entity type network must has no parent"] == errors_on(changeset).parent_id
     end
 
     test "returns error changeset when parent id is not type network to entity type school" do
@@ -152,7 +152,7 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_school)
 
-      assert ["invalid entity parent type"] == errors_on(changeset).parent_id
+      assert ["entity type school must has no parent or has parent type network"] == errors_on(changeset).parent_id
     end
 
     test "returns error changeset when parent entity type is not school to entity type class" do
@@ -167,7 +167,7 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_school)
 
-      assert ["invalid entity parent type"] == errors_on(changeset).parent_id
+      assert ["entity type class must has parent type school"] == errors_on(changeset).parent_id
     end
   end
 
@@ -205,7 +205,7 @@ defmodule Arvore.PartnersTest do
 
       assert entity == Partners.get_entity(entity.id)
 
-      assert ["invalid entity parent type"] == errors_on(changeset).parent_id
+      assert ["entity type class must has parent type school"] == errors_on(changeset).parent_id
       assert ["inep only for entity type school"] == errors_on(changeset).inep
       assert ["can't be blank"] == errors_on(changeset).name
     end

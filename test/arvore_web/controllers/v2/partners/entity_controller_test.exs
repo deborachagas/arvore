@@ -106,7 +106,7 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
       assert response == %{
                "errors" => %{
                  "inep" => ["inep only for entity type school"],
-                 "parent_id" => ["invalid entity parent type"],
+                 "parent_id" => ["entity type class must has parent type school"],
                  "name" => ["can't be blank"]
                }
              }

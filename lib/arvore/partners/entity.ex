@@ -16,6 +16,12 @@ defmodule Arvore.Partners.Entity do
           parent_id: integer()
         }
 
+  @entity_hierarchy [
+    {"class", ["school"]},
+    {"school", [nil, "network"]},
+    {"network", [nil]}
+  ]
+
   schema "entities" do
     field :inep, :string
     field :name, :string
@@ -38,15 +44,16 @@ defmodule Arvore.Partners.Entity do
     |> validate_entity_hierarchy(parent)
   end
 
+  # inep is required only to entity type school,
+  # when entity type is not school inep must be null
   defp validate_inep_required(changeset) do
     changeset
     |> get_fields_for_inep_validate()
     |> validate_inep_school(changeset)
   end
 
-  defp get_fields_for_inep_validate(changeset) do
-    {get_field(changeset, :entity_type), get_field(changeset, :inep)}
-  end
+  defp get_fields_for_inep_validate(changeset),
+    do: {get_field(changeset, :entity_type), get_field(changeset, :inep)}
 
   defp validate_inep_school({"school", _inep}, changeset),
     do: validate_required(changeset, [:inep])
@@ -56,19 +63,18 @@ defmodule Arvore.Partners.Entity do
 
   defp validate_inep_school(_, changeset), do: changeset
 
-  @entity_hierarchy [
-    {"class", ["school"]},
-    {"school", [nil, "network"]},
-    {"network", [nil]}
-  ]
 
+  # entity parent must follow the hierarchy defined in the list @entity_hierarchy:
+  # network: has no parent
+  # school: could have no parent or a parent type Network
+  # class: must be a parent type School
   defp validate_entity_hierarchy(changeset, parent) do
     changeset
-    |> find_entity_hierarchy()
-    |> is_valid_hierarchy(parent, changeset)
+    |> find_entity_hierarchy_by_type()
+    |> is_valid_hierarchy(get_parent_entity_type(parent), changeset)
   end
 
-  defp find_entity_hierarchy(changeset) do
+  defp find_entity_hierarchy_by_type(changeset) do
     new_entity_type = get_field(changeset, :entity_type)
 
     Enum.find(@entity_hierarchy, fn {entity_type, _} ->
@@ -76,17 +82,36 @@ defmodule Arvore.Partners.Entity do
     end)
   end
 
+  defp get_parent_entity_type(%{entity_type: type}), do: type
+  defp get_parent_entity_type(_), do: nil
+
   defp is_valid_hierarchy(nil, _parent, changeset),
     do: add_error(changeset, :entity_type, "invalid entity type")
 
-  defp is_valid_hierarchy(entity_hierarchy, %{entity_type: parent_entity_type}, changeset),
-    do: is_valid_hierarchy(entity_hierarchy, parent_entity_type, changeset)
-
-  defp is_valid_hierarchy({_, hierarchy_parent_entity_type}, parent_entity_type, changeset) do
+  defp is_valid_hierarchy(
+         {entity_type, hierarchy_parent_entity_type},
+         parent_entity_type,
+         changeset
+       ) do
     if not Enum.member?(hierarchy_parent_entity_type, parent_entity_type) do
-      add_error(changeset, :parent_id, "invalid entity parent type")
+      add_error(
+        changeset,
+        :parent_id,
+        "entity type #{entity_type} must #{build_herarchy_message(hierarchy_parent_entity_type)}"
+      )
     else
       changeset
     end
+  end
+
+  defp build_herarchy_message(hierarchy_parent_entity_type) do
+    Enum.map(hierarchy_parent_entity_type, fn type ->
+      if is_nil(type) do
+        "has no parent"
+      else
+        "has parent type #{type}"
+      end
+    end)
+    |> Enum.join(" or ")
   end
 end
