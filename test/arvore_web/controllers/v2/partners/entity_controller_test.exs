@@ -3,6 +3,30 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
 
   alias Arvore.Partners
 
+  describe "list entities" do
+    test "return list of entities", %{conn: conn} do
+      entity = insert(:entity)
+
+      response =
+        conn
+        |> get(Routes.entity_path(conn, :index))
+        |> json_response(:ok)
+
+      [response_entity] = response["data"]
+      assert response_entity["name"] == entity.name
+      assert response_entity["entity_type"] == entity.entity_type
+    end
+
+    test "return empty list if has no entity", %{conn: conn} do
+      response =
+        conn
+        |> get(Routes.entity_path(conn, :index))
+        |> json_response(:ok)
+
+      assert [] == response["data"]
+    end
+  end
+
   describe "get entity" do
     test "return json entity by id", %{conn: conn} do
       entity = insert(:entity)
@@ -62,7 +86,7 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
       {:ok, entity: insert(:entity)}
     end
 
-    test "redirects when data is valid", %{conn: conn, entity: entity} do
+    test "return json entity when data is valid", %{conn: conn, entity: entity} do
       update_attrs = %{
         "name" => "Teste update",
         "entity_type" => "school",
@@ -81,7 +105,7 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
       assert response["data"]["parent_id"] == nil
     end
 
-    test "renders errors when entity not found", %{conn: conn} do
+    test "return errors when entity not found", %{conn: conn} do
       response =
         conn
         |> put(Routes.entity_path(conn, :update, 2, %{}))
@@ -90,7 +114,7 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
       assert response == %{"error" => "Not found"}
     end
 
-    test "renders errors when data is invalid", %{conn: conn, entity: entity} do
+    test "return errors when data is invalid", %{conn: conn, entity: entity} do
       invalid_attrs = %{
         "name" => nil,
         "entity_type" => "class",
@@ -110,6 +134,42 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
                  "name" => ["can't be blank"]
                }
              }
+    end
+  end
+
+  describe "delete entity" do
+    setup do
+      {:ok, entity: insert(:entity, entity: insert(:entity, entity_type: "network"))}
+    end
+
+    test "return json entity when deleted", %{conn: conn, entity: entity} do
+      response =
+        conn
+        |> delete(Routes.entity_path(conn, :delete, entity.id))
+        |> json_response(:ok)
+
+      assert response["data"]["name"] == entity.name
+      assert response["data"]["entity_type"] == entity.entity_type
+    end
+
+    test "return errors when entity has associated data", %{conn: conn, entity: entity} do
+      insert(:entity, entity_type: "school", inep: "123", parent_id: entity.id)
+
+      response =
+        conn
+        |> delete(Routes.entity_path(conn, :delete, entity.id))
+        |> json_response(:unprocessable_entity)
+
+      assert response == %{"errors" => %{"subtree" => ["are still associated with this entry"]}}
+    end
+
+    test "return not found error message when id not exists", %{conn: conn} do
+      response =
+        conn
+        |> delete(Routes.entity_path(conn, :delete, 1))
+        |> json_response(:not_found)
+
+      assert response["error"] == "Not found"
     end
   end
 end

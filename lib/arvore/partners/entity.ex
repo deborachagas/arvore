@@ -7,6 +7,7 @@ defmodule Arvore.Partners.Entity do
   import Ecto.Changeset
 
   alias Arvore.Partners.EntityType
+  alias Arvore.Accounts.User
 
   @type t :: %__MODULE__{
           inep: String.t(),
@@ -28,6 +29,7 @@ defmodule Arvore.Partners.Entity do
     belongs_to(:entity_type_table, EntityType, type: :string, foreign_key: :entity_type)
     belongs_to(:entity, __MODULE__, foreign_key: :parent_id)
     has_many(:subtree, __MODULE__, foreign_key: :parent_id)
+    has_many(:users, User)
 
     timestamps()
   end
@@ -42,6 +44,13 @@ defmodule Arvore.Partners.Entity do
     |> foreign_key_constraint(:parent_id)
     |> validate_inep_required()
     |> validate_entity_hierarchy(parent)
+  end
+
+  def changeset_delete(entity) do
+    entity
+    |> change
+    |> no_assoc_constraint(:subtree)
+    |> no_assoc_constraint(:users)
   end
 
   # inep is required only to entity type school,
@@ -62,7 +71,6 @@ defmodule Arvore.Partners.Entity do
     do: add_error(changeset, :inep, "inep only for entity type school")
 
   defp validate_inep_school(_, changeset), do: changeset
-
 
   # entity parent must follow the hierarchy defined in the list @entity_hierarchy:
   # network: has no parent

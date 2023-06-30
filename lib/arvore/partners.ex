@@ -4,14 +4,32 @@ defmodule Arvore.Partners do
   """
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
   alias Arvore.Repo
 
   alias Arvore.Partners.Entity
 
   @doc """
+  List all entities.
+
+  Returns empty list if has no entity
+
+  ## Examples
+
+      iex> list_entities()
+      [%Entity{}, ..]
+
+      iex> list_entities()
+      []
+
+  """
+  @spec list_entities() :: nil | [Entity.t()]
+  def list_entities, do: Repo.all(Entity)
+
+  @doc """
   Gets a single entity.
 
-  Raises `Ecto.NoResultsError` if the Entity does not exist.
+  Returns nil if the Entity does not exist.
 
   ## Examples
 
@@ -25,8 +43,17 @@ defmodule Arvore.Partners do
       nil
 
   """
+  @spec get_entity(integer()) :: nil | Entity.t()
   def get_entity(nil), do: nil
   def get_entity(""), do: nil
+
+  def get_entity(id) when not is_integer(id) do
+    case Integer.parse(id) do
+      {id, ""} -> get_entity(id)
+      _ -> nil
+    end
+  end
+
   def get_entity(id), do: Repo.get(Entity, id)
 
   @doc """
@@ -41,6 +68,13 @@ defmodule Arvore.Partners do
       {:error, %Ecto.Changeset{}}
 
   """
+  @type create_entity_params :: %{
+          required(:name) => String.t(),
+          required(:entity_type) => String.t(),
+          optional(:ineb) => String.t(),
+          optional(:parent_id) => integer()
+        }
+  @spec create_entity(create_entity_params) :: {:ok, Entity.t()} | {:error, Changeset.t()}
   def create_entity(attrs \\ %{}) do
     parent = get_entity(attrs["parent_id"])
 
@@ -61,12 +95,38 @@ defmodule Arvore.Partners do
       {:error, %Ecto.Changeset{}}
 
   """
-
+  @type update_entity_params :: %{
+          optional(:name) => String.t(),
+          optional(:entity_type) => String.t(),
+          optional(:ineb) => String.t(),
+          optional(:parent_id) => integer()
+        }
+  @spec update_entity(Entity.t(), update_entity_params) ::
+          {:ok, Entity.t()} | {:error, Changeset.t()}
   def update_entity(%Entity{} = entity, attrs) do
     parent = get_entity(attrs["parent_id"])
 
     entity
     |> Entity.changeset(attrs, parent)
     |> Repo.update()
+  end
+
+  @doc """
+  Deletes a entity.
+
+  ## Examples
+
+      iex> delete_entity(entity)
+      {:ok, %Entity{}}
+
+      iex> delete_entity(entity)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec delete_entity(Entity.t()) :: {:ok, Entity.t()} | {:error, Changeset.t()}
+  def delete_entity(%Entity{} = entity) do
+    entity
+    |> Entity.changeset_delete()
+    |> Repo.delete()
   end
 end

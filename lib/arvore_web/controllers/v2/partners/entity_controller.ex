@@ -6,6 +6,11 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
 
   action_fallback ArvoreWeb.FallbackController
 
+  def index(conn, _) do
+    entities = Partners.list_entities()
+    render(conn, "index.json", entities: entities)
+  end
+
   def show(conn, %{"id" => id}) do
     case Partners.get_entity(id) do
       %Entity{} = entity -> render(conn, "show.json", entity: entity)
@@ -24,6 +29,18 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
   def update(conn, entity_params) do
     with %Entity{} = entity <- Partners.get_entity(entity_params["id"]),
          {:ok, entity} <- Partners.update_entity(entity, entity_params) do
+      conn
+      |> put_status(:ok)
+      |> render("show.json", entity: entity)
+    else
+      nil -> {:error, :not_found}
+      {:error, changeset} -> {:error, changeset}
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    with %Entity{} = entity <- Partners.get_entity(id),
+         {:ok, entity} <- Partners.delete_entity(entity) do
       conn
       |> put_status(:ok)
       |> render("show.json", entity: entity)

@@ -4,6 +4,17 @@ defmodule Arvore.PartnersTest do
   alias Arvore.Partners
   alias Arvore.Partners.Entity
 
+  describe "list_entities/0" do
+    test "returns a list of entities" do
+      entity = insert(:entity)
+      assert Partners.list_entities() == [entity]
+    end
+
+    test "returns a empty list if has no entity" do
+      assert Partners.list_entities() == []
+    end
+  end
+
   describe "get_entity/0" do
     test "returns the entity with given id" do
       entity = insert(:entity)
@@ -11,7 +22,6 @@ defmodule Arvore.PartnersTest do
     end
 
     test "returns nil with given id is nil" do
-      insert(:entity)
       assert Partners.get_entity(nil) == nil
     end
 
@@ -64,10 +74,11 @@ defmodule Arvore.PartnersTest do
       assert entity.entity_type == "class"
     end
 
-    test "returns error changeset when name is nil" do
-      invalid_attrs = %{"name" => nil}
+    test "returns error changeset when required fields are nil" do
+      invalid_attrs = %{}
       assert {:error, %Ecto.Changeset{} = changeset} = Partners.create_entity(invalid_attrs)
-      assert ["can't be blank"] == errors_on(changeset).name
+      assert "can't be blank" in errors_on(changeset).name
+      assert "can't be blank" in errors_on(changeset).entity_type
     end
 
     test "returns error changeset when name to entity_type alredy exists" do
@@ -75,7 +86,7 @@ defmodule Arvore.PartnersTest do
 
       invalid_attrs = %{"name" => entity.name, "entity_type" => entity.entity_type}
       assert {:error, %Ecto.Changeset{} = changeset} = Partners.create_entity(invalid_attrs)
-      assert ["has already been taken"] == errors_on(changeset).name
+      assert "has already been taken" in errors_on(changeset).name
 
       valid_attrs = %{"name" => entity.name, "entity_type" => "school", "inep" => "inep"}
       assert {:ok, %Entity{}} = Partners.create_entity(valid_attrs)
@@ -84,7 +95,7 @@ defmodule Arvore.PartnersTest do
     test "returns error changeset when entity type is invalid" do
       invalid_attrs = %{"name" => "name", "entity_type" => "invalid"}
       assert {:error, %Ecto.Changeset{} = changeset} = Partners.create_entity(invalid_attrs)
-      assert ["invalid entity type"] == errors_on(changeset).entity_type
+      assert "invalid entity type" in errors_on(changeset).entity_type
     end
 
     test "returns error changeset when inep is null to entity type school" do
@@ -93,7 +104,7 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_school)
 
-      assert ["can't be blank"] == errors_on(changeset).inep
+      assert "can't be blank" in errors_on(changeset).inep
     end
 
     test "returns error changeset when inep is not null when entity type is not school" do
@@ -107,7 +118,7 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_network)
 
-      assert ["inep only for entity type school"] == errors_on(changeset).inep
+      assert "inep only for entity type school" in errors_on(changeset).inep
 
       entity = insert(:entity, entity_type: "school")
 
@@ -121,7 +132,7 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_network)
 
-      assert ["inep only for entity type school"] == errors_on(changeset).inep
+      assert "inep only for entity type school" in errors_on(changeset).inep
     end
 
     test "returns error changeset when parent id is not null to entity type network" do
@@ -136,7 +147,7 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_network)
 
-      assert ["entity type network must has no parent"] == errors_on(changeset).parent_id
+      assert "entity type network must has no parent" in errors_on(changeset).parent_id
     end
 
     test "returns error changeset when parent id is not type network to entity type school" do
@@ -152,7 +163,9 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_school)
 
-      assert ["entity type school must has no parent or has parent type network"] == errors_on(changeset).parent_id
+      assert "entity type school must has no parent or has parent type network" in errors_on(
+               changeset
+             ).parent_id
     end
 
     test "returns error changeset when parent entity type is not school to entity type class" do
@@ -167,7 +180,7 @@ defmodule Arvore.PartnersTest do
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.create_entity(attrs_entity_school)
 
-      assert ["entity type class must has parent type school"] == errors_on(changeset).parent_id
+      assert "entity type class must has parent type school" in errors_on(changeset).parent_id
     end
   end
 
@@ -205,9 +218,33 @@ defmodule Arvore.PartnersTest do
 
       assert entity == Partners.get_entity(entity.id)
 
-      assert ["entity type class must has parent type school"] == errors_on(changeset).parent_id
-      assert ["inep only for entity type school"] == errors_on(changeset).inep
-      assert ["can't be blank"] == errors_on(changeset).name
+      assert "entity type class must has parent type school" in errors_on(changeset).parent_id
+      assert "inep only for entity type school" in errors_on(changeset).inep
+      assert "can't be blank" in errors_on(changeset).name
+    end
+  end
+
+  describe "delete_entity/2" do
+    setup do
+      {:ok, entity: insert(:entity, entity_type: "network")}
+    end
+
+    test "success deletes the entity", %{entity: entity} do
+      assert {:ok, %Entity{} = deleted_entity} = Partners.delete_entity(entity)
+      assert deleted_entity.id == entity.id
+      assert Partners.get_entity(entity.id) == nil
+    end
+
+    test "when has associate entity returns error changeset", %{entity: entity} do
+      insert(:entity, entity_type: "school", inep: "123", parent_id: entity.id)
+      assert {:error, %Ecto.Changeset{} = changeset} = Partners.delete_entity(entity)
+      assert "are still associated with this entry" in errors_on(changeset).subtree
+    end
+
+    test "when has associate user returns error changeset", %{entity: entity} do
+      insert(:user, entity_id: entity.id)
+      assert {:error, %Ecto.Changeset{} = changeset} = Partners.delete_entity(entity)
+      assert "are still associated with this entry" in errors_on(changeset).users
     end
   end
 end

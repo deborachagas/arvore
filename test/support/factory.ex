@@ -7,4 +7,6 @@ defmodule Arvore.Factory do
     EntityFactory,
     EntityTypeFactory
   }
+
+  use Arvore.Accounts.UserFactory
 end

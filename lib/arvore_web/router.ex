@@ -16,9 +16,15 @@ defmodule ArvoreWeb.Router do
   scope "/api", ArvoreWeb do
     pipe_through :api
 
+    scope "/v1", V1 do
+      scope "/accounts", Accounts do
+        resources "/users", UserController
+      end
+    end
+
     scope "/v2", V2 do
       scope "/partners", Partners do
-        resources "/entities", EntityController, only: [:show, :create, :update]
+        resources "/entities", EntityController
       end
     end
   end
