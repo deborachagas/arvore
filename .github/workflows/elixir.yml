@@ -16,7 +16,6 @@ permissions:
 
 jobs:
   build:
-
     name: Build and test
     runs-on: ubuntu-latest
 
@@ -33,7 +32,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: mysql
 
-    steps:
+  steps:
     - uses: actions/checkout@v3
     
     - name: Cache dependencies
@@ -62,11 +61,11 @@ jobs:
       run: mix format --check-formatted
 
     - name: Cache build 
-        uses: actions/cache@v3
-        id: cache-build
-        with:
-          path: _build/test
-          key: ${{ matrix.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles('mix.lock', 'mix.exs', 'config/*.exs') }}
+      uses: actions/cache@v3
+      id: cache-build
+      with:
+        path: _build/test
+        key: ${{ matrix.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles('mix.lock', 'mix.exs', 'config/*.exs') }}
 
     - name: Compile code
       run: mix compile --warnings-as-errors --all-warnings
@@ -80,9 +79,9 @@ jobs:
         MIX_ENV: test
     
     - name: Run migrations
-        run: mix ecto.migrate
-        env:
-          MIX_ENV: test
+      run: mix ecto.migrate
+      env:
+        MIX_ENV: test
 
     - name: Run tests
       run: mix coveralls.lcov --warnings-as-errors | sed -e ':a' -e 'N' -e '$!ba' -e 's/\(\(WARNING:\ Deleting data for module\|Analysis includes data from imported files\)[^]]*]\n\)//g'; exit ${PIPESTATUS[0]}
