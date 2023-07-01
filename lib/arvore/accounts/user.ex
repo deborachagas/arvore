@@ -43,9 +43,10 @@ defmodule Arvore.Accounts.User do
 
   defp hash_password(changeset) do
     password =
-      changeset
-      |> get_field(:password)
-      |> Bcrypt.hash_pwd_salt()
+      case get_field(changeset, :password) do
+        nil -> nil
+        password -> Bcrypt.hash_pwd_salt(password)
+      end
 
     put_change(changeset, :password, password)
   end

@@ -1,13 +1,14 @@
 defmodule ArvoreWeb.Router do
   use ArvoreWeb, :router
 
-  pipeline :unauthorize do
+  pipeline :api do
     plug :accepts, ["json"]
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-    plug ArvoreWeb.JwtAuthPlug
+  pipeline :auth do
+    if Mix.env() != :test do
+      plug ArvoreWeb.JwtAuthPlug
+    end
   end
 
   scope "/", ArvoreWeb do
@@ -15,7 +16,7 @@ defmodule ArvoreWeb.Router do
   end
 
   scope "/api", ArvoreWeb do
-    pipe_through :unauthorize
+    pipe_through :api
 
     scope "/v1", V1 do
       scope "/accounts", Accounts do
@@ -25,7 +26,7 @@ defmodule ArvoreWeb.Router do
   end
 
   scope "/api", ArvoreWeb do
-    pipe_through :api
+    pipe_through [:api, :auth]
 
     scope "/v1", V1 do
       scope "/accounts", Accounts do

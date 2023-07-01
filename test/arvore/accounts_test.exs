@@ -134,4 +134,39 @@ defmodule Arvore.AccountsTest do
       assert Accounts.get_user(user.id) == nil
     end
   end
+
+  describe "login/2" do
+    setup do
+      {:ok, user} = Accounts.create_user(@valid_attrs)
+      {:ok, user: user}
+    end
+
+    test "with valid data login user", %{user: user} do
+      assert {:ok, _} = Accounts.login(user.login, @valid_attrs["password"])
+    end
+
+    test "returns error when user don't exists" do
+      assert {:error, :user_not_found} == Accounts.login("teste", "teste")
+    end
+
+    test "returns error when password is invalid", %{user: user} do
+      assert {:error, :invalid_password} = Accounts.login(user.login, "teste")
+    end
+  end
+
+  describe "validate_token/1" do
+    test "with valid data validate jwt" do
+      {:ok, user} = Accounts.create_user(@valid_attrs)
+      {:ok, jwt} = Accounts.login(user.login, @valid_attrs["password"])
+
+      assert {:ok, claims} = Accounts.validate_token(jwt)
+      assert claims["sub"] == user.id
+      assert claims["user_login"] == user.login
+      assert claims["user_type"] == user.type
+    end
+
+    test "returns error with invalid jwt" do
+      assert {:error, "Invalid token"} = Accounts.validate_token("jwt")
+    end
+  end
 end

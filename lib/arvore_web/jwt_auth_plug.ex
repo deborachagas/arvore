@@ -6,7 +6,7 @@ defmodule ArvoreWeb.JwtAuthPlug do
 
   def call(conn, _opts) do
     with token when not is_nil(token) <- jwt_from_header(conn),
-        {:ok, claims} <- Accounts.validate_token(token) do
+         {:ok, claims} <- Accounts.validate_token(token) do
       success(conn, claims, token)
     else
       {:error, error} -> forbidden(conn, error)

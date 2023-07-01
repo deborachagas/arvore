@@ -124,7 +124,6 @@ defmodule Arvore.Accounts do
     Repo.delete(user)
   end
 
-
   @doc """
   Login user with login and password.
 
@@ -165,15 +164,15 @@ defmodule Arvore.Accounts do
       {:error, "Invalid token"}
   """
   @type claim :: %{
-    exp: integer(),
-    iat: integer(),
-    iss: String.t(),
-    jti: String.t(),
-    nbf: integer(),
-    sub: integer(),
-    user_login: String.t(),
-    user_type: String.t(),
-  }
+          exp: integer(),
+          iat: integer(),
+          iss: String.t(),
+          jti: String.t(),
+          nbf: integer(),
+          sub: integer(),
+          user_login: String.t(),
+          user_type: String.t()
+        }
   @spec validate_token(String.t()) :: {:ok, claim()} | {:error, String.t()}
   def validate_token(jwt) do
     case ArvoreToken.verify(jwt, nil) do

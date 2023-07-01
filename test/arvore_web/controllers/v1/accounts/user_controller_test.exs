@@ -1,5 +1,5 @@
 defmodule ArvoreWeb.AccountsUserControllerTest do
-  use ArvoreWeb.ConnCase
+  use ArvoreWeb.ConnCase, async: true
 
   @valid_attrs %{
     "name" => "name",

@@ -3,7 +3,7 @@ defmodule Arvore.Accounts.ArvoreToken do
 
   @impl Joken.Config
   def token_config do
-    default_claims(default_exp: 60*60, iss: "arvore", aud: "user")
+    default_claims(default_exp: 60 * 60, iss: "arvore", aud: "user")
     # |> add_claim("role", fn -> "USER" end, &(&1 in ["ADMIN", "USER"]))
   end
 
