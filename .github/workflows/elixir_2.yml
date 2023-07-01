@@ -16,13 +16,13 @@ permissions:
 
 env:
   MIX_ENV: test
-  ImageOS: ubuntu18.04
-  
+  ImageOS: ubuntu-lasted
+
 jobs:
   build:
 
     name: Build and test
-    runs-on: ubuntu20
+    runs-on: ubuntu-lasted
 
     steps:
     - uses: actions/checkout@v3
