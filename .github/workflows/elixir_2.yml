@@ -13,7 +13,7 @@ on:
 
 env:
   MIX_ENV: test
-  ImageOS: ubuntu-latest
+  ImageOS: ubuntu20
 
 permissions:
   contents: read
@@ -22,7 +22,7 @@ jobs:
   build:
 
     name: Build and test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu20
 
     steps:
     - uses: actions/checkout@v3
