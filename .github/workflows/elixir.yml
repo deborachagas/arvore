@@ -36,7 +36,7 @@ jobs:
         with:
           path: _build
           key: ${{ matrix.os }}
-          
+
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
         with:
@@ -58,11 +58,11 @@ jobs:
       - name: Compile code
         run: mix compile --warnings-as-errors --all-warnings
 
-      - name: Create database
-        run: mix ecto.create
+      # - name: Create database
+      #   run: mix ecto.create
       
-      - name: Run migrations
-        run: mix ecto.migrate
+      # - name: Run migrations
+      #   run: mix ecto.migrate
 
       - name: Clear test cache
         run: rm -rf _build/test
