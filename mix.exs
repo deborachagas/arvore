@@ -10,7 +10,14 @@ defmodule Arvore.MixProject do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      test_coverage: [tool: ExCoveralls],
+      deps: deps(),
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -48,7 +55,8 @@ defmodule Arvore.MixProject do
       {:ex_machina, "~> 2.7.0", only: :test},
       {:bcrypt_elixir, "~> 3.0"},
       {:joken, "~> 2.0-rc0"},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 
