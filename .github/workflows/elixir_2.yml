@@ -17,12 +17,12 @@ jobs:
         otp: ['20.3', '21.3', '22.2']
         elixir: ['1.8.2', '1.9.4']
 
-    # services:
-    #   db:
-    #     image: "mysql:8.0.33"
-    #     ports: ["3306:3306"]
-    #     env:
-    #       MYSQL_ROOT_PASSWORD: mysql
+    services:
+      db:
+        image: "mysql:8.0.33"
+        ports: ["3306:3306"]
+        env:
+          MYSQL_ROOT_PASSWORD: mysql
 
     steps:
       - uses: actions/checkout@v3
