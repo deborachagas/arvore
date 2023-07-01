@@ -23,7 +23,7 @@ jobs:
         os: [ubuntu-latest]
         elixir: [1.14.4]
         otp: [25.2.3]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     services:
       db:
