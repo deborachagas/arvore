@@ -15,8 +15,15 @@ permissions:
   contents: read
 
 jobs:
-  Run-npm-on-Ubuntu:
-    name: Run npm on Ubuntu
+  build:
+    name: Build and Test
+    services:
+      db:
+        image: "mysql:8.0.33"
+        ports: ["3306:3306"]
+        env:
+          MYSQL_ROOT_PASSWORD: mysql
+          
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
