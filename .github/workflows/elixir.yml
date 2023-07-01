@@ -1,9 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Elixir CI 2
+name: Elixir CI
 
 on:
   push
@@ -28,6 +23,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        id: cache-deps
+        with:
+          path: deps
+          key: ${{ matrix.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles('**/mix.lock') }}
+
+      - name: Cache build
+        uses: actions/cache@v3
+        id: cache-build
+        with:
+          path: _build
+          key: ${{ matrix.os }
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
         with:
