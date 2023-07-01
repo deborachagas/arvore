@@ -1,4 +1,7 @@
 defmodule ArvoreWeb.JwtAuthPlug do
+  @moduledoc """
+  Plug for jwt authorization
+  """
   import Plug.Conn
   alias Arvore.Accounts
 

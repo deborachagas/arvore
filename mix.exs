@@ -47,7 +47,8 @@ defmodule Arvore.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:ex_machina, "~> 2.7.0", only: :test},
       {:bcrypt_elixir, "~> 3.0"},
-      {:joken, "~> 2.0-rc0"}
+      {:joken, "~> 2.0-rc0"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -62,7 +63,8 @@ defmodule Arvore.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      check: ["format", "credo --strict"]
     ]
   end
 end

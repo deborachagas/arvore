@@ -16,6 +16,8 @@ defmodule Arvore.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias Arvore.Repo
@@ -30,10 +32,10 @@ defmodule Arvore.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Arvore.Repo)
+    :ok = Sandbox.checkout(Arvore.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Arvore.Repo, {:shared, self()})
+      Sandbox.mode(Arvore.Repo, {:shared, self()})
     end
 
     :ok

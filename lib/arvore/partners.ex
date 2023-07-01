@@ -4,10 +4,9 @@ defmodule Arvore.Partners do
   """
 
   import Ecto.Query, warn: false
-  alias Ecto.Changeset
-  alias Arvore.Repo
-
   alias Arvore.Partners.Entity
+  alias Arvore.Repo
+  alias Ecto.Changeset
 
   @doc """
   List all entities.

@@ -6,8 +6,8 @@ defmodule Arvore.Partners.Entity do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Arvore.Partners.EntityType
   alias Arvore.Accounts.User
+  alias Arvore.Partners.EntityType
 
   @type t :: %__MODULE__{
           inep: String.t(),
@@ -101,25 +101,24 @@ defmodule Arvore.Partners.Entity do
          parent_entity_type,
          changeset
        ) do
-    if not Enum.member?(hierarchy_parent_entity_type, parent_entity_type) do
+    if Enum.member?(hierarchy_parent_entity_type, parent_entity_type) do
+      changeset
+    else
       add_error(
         changeset,
         :parent_id,
         "entity type #{entity_type} must #{build_herarchy_message(hierarchy_parent_entity_type)}"
       )
-    else
-      changeset
     end
   end
 
   defp build_herarchy_message(hierarchy_parent_entity_type) do
-    Enum.map(hierarchy_parent_entity_type, fn type ->
+    Enum.map_join(hierarchy_parent_entity_type, " or ", fn type ->
       if is_nil(type) do
         "has no parent"
       else
         "has parent type #{type}"
       end
     end)
-    |> Enum.join(" or ")
   end
 end

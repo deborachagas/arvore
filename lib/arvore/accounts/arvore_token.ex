@@ -1,4 +1,8 @@
 defmodule Arvore.Accounts.ArvoreToken do
+  @moduledoc """
+  Module to generates and validates jwt
+  """
+
   use Joken.Config, default_signer: :pem_rs256
 
   @impl Joken.Config
