@@ -24,6 +24,7 @@ jobs:
         elixir: [1.14.4]
         otp: [25.2.3]
     runs-on: ${{ matrix.os }}
+    
     services:
       db:
         image: "mysql:8.0.33"
