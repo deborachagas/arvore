@@ -1,4 +1,4 @@
-name: Elixir CI
+name: Árvore Testes
 
 on:
   push
@@ -58,11 +58,15 @@ jobs:
       - name: Compile code
         run: mix compile --warnings-as-errors --all-warnings
 
-      # - name: Create database
-      #   run: mix ecto.create
-      
-      # - name: Run migrations
-      #   run: mix ecto.migrate
+      - name: Create database
+        run: mix ecto.create
+        env:
+          MIX_ENV: test
+
+      - name: Run migrations
+        run: mix ecto.migrate
+        env:
+          MIX_ENV: test
 
       - name: Clear test cache
         run: rm -rf _build/test
