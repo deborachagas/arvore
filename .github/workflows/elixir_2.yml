@@ -20,8 +20,8 @@ jobs:
     name: Build and test
     runs-on: ubuntu18
 
-    # steps:
-    # - uses: actions/checkout@v3
+    steps:
+    - uses: actions/checkout@v3
     # - name: Set up Elixir
     #   uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
     #   with:
