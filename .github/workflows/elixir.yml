@@ -20,14 +20,14 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu18]
+        os: [ubuntu-20.04]
         elixir: [1.14.4]
         otp: [25.2.3]
 
     env:
       OTP_VERSION: ${{ matrix.otp }}
       ELIXIR_VERSION: ${{ matrix.elixir }}
-      ImageOS: ubuntu18
+      ImageOS: ubuntu-20.04
 
     runs-on: ${{ matrix.os }}
 
