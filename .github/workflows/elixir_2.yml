@@ -15,8 +15,17 @@ permissions:
   contents: read
 
 jobs:
+  Run-npm-on-Ubuntu:
+      name: Run npm on Ubuntu
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: '14'
+        - run: npm help
+        
   build:
-
     name: Build and test
     runs-on: ubuntu-lasted
     
