@@ -38,5 +38,15 @@ defmodule Arvore.Accounts.User do
     |> foreign_key_constraint(:entity_id)
     |> unique_constraint([:email])
     |> unique_constraint([:login])
+    |> hash_password()
+  end
+
+  defp hash_password(changeset) do
+    password =
+      changeset
+      |> get_field(:password)
+      |> Bcrypt.hash_pwd_salt()
+
+    put_change(changeset, :password, password)
   end
 end

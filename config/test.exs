@@ -20,3 +20,6 @@ config :arvore, ArvoreWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warning
+config :bcrypt_elixir, log_rounds: 4
+
+config :arvore, :jwt_secret, "secret"

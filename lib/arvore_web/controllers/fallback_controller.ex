@@ -9,6 +9,14 @@ defmodule ArvoreWeb.FallbackController do
     render_error(conn, :not_found, "Not found")
   end
 
+  def call(conn, {:error, :usuario_not_found}) do
+    render_error(conn, :not_found, "User not found")
+  end
+
+  def call(conn, {:error, :invalid_password}) do
+    render_error(conn, :unauthorized, "Invalid password")
+  end
+
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)

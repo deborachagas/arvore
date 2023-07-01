@@ -39,3 +39,5 @@ config :arvore, ArvoreWeb.Endpoint,
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
+
+config :arvore, :jwt_secret, "secret"

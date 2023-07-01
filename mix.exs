@@ -45,7 +45,9 @@ defmodule Arvore.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:ex_machina, "~> 2.7.0", only: :test}
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:bcrypt_elixir, "~> 3.0"},
+      {:joken, "~> 2.0-rc0"}
     ]
   end
 

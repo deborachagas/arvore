@@ -1,16 +1,27 @@
 defmodule ArvoreWeb.Router do
   use ArvoreWeb, :router
 
-  pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+  pipeline :unauthorize do
+    plug :accepts, ["json"]
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug ArvoreWeb.JwtAuthPlug
+  end
+
+  scope "/", ArvoreWeb do
+    get "/health", HealthCheckController, :health
+  end
+
+  scope "/api", ArvoreWeb do
+    pipe_through :unauthorize
+
+    scope "/v1", V1 do
+      scope "/accounts", Accounts do
+        post "/login", AuthenticationController, :login
+      end
+    end
   end
 
   scope "/api", ArvoreWeb do
@@ -26,31 +37,6 @@ defmodule ArvoreWeb.Router do
       scope "/partners", Partners do
         resources "/entities", EntityController
       end
-    end
-  end
-
-  scope "/", ArvoreWeb do
-    get "/health", HealthCheckController, :health
-  end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", ArvoreWeb do
-  #   pipe_through :api
-  # end
-
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
-  if Mix.env() in [:dev, :test] do
-    import Phoenix.LiveDashboard.Router
-
-    scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: ArvoreWeb.Telemetry
     end
   end
 end
