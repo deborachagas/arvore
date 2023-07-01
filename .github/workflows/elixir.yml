@@ -23,11 +23,11 @@ jobs:
         os: [ubuntu-latest]
         elixir: [1.14.4]
         otp: [25.2.3]
-        
+
     env:
       OTP_VERSION: ${{ matrix.otp }}
       ELIXIR_VERSION: ${{ matrix.elixir }}
-      ImageOS: ubuntu18
+      ImageOS: ${{ matrix.os }}
 
     runs-on: ${{ matrix.os }}
 
@@ -50,7 +50,7 @@ jobs:
           key: ${{ matrix.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles('**/mix.lock') }}
 
       - name: Set up Elixir
-        uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+        uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
