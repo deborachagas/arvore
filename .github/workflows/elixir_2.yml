@@ -27,16 +27,11 @@ jobs:
     runs-on: ubuntu20
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm help
-
-      - name: Set up Elixir
-        uses: erlef/setup-beam@v1
+      - uses: erlef/setup-beam@v1
         with:
           elixir-version: '1.12.3' # Define the elixir version [required]
           otp-version: '24.1' # Define the OTP version [required]
+      - run: rebar3 ct
 
       # - name: Restore dependencies cache
       #   uses: actions/cache@v3
