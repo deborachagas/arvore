@@ -23,6 +23,12 @@ jobs:
         os: [ubuntu-latest]
         elixir: [1.14.4]
         otp: [25.2.3]
+        
+    env:
+      OTP_VERSION: ${{ matrix.otp }}
+      ELIXIR_VERSION: ${{ matrix.elixir }}
+      ImageOS: ubuntu18
+
     runs-on: ${{ matrix.os }}
 
     services:
