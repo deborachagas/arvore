@@ -278,15 +278,21 @@ Response:
 Usar o token gerado pelo endpoint de login
 
 ```
-GET: http://localhost:4000/api/v2/partners/entities
+GET: http://localhost:4000/api/v2/partners/entities/:id_entity
 Headers:
 {
   Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
 }
-Body:
-{}
+
 Response:
 {
-  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
+  "data": {
+    "id": 2,
+    "entity_type": "school",
+    "inep": "123456",
+    "name": "Escola Exemplo",
+    "parent_id": null,
+    "subtree_ids": [3, 4]
+  }
 }
 ```
