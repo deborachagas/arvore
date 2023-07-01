@@ -10,12 +10,13 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-lasted
     name: Build and Test
     strategy:
       matrix:
+        os: ubuntu-20.04
         otp: ['25']
         elixir: ['1.15.0']
+    runs-on: ${{ matrix.os }}
 
     services:
       db:
