@@ -27,10 +27,37 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: erlef/setup-beam@v1
+
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
-      - run: mix deps.get
-      - run: mix test
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Check unused dependencies
+        run: mix deps.unlock --check-unused
+
+      - name: Run format  
+        run: mix format
+
+      - name: Run Credo
+        run: mix credo --strict
+
+      - name: Compile code
+        run: mix compile --warnings-as-errors --all-warnings
+
+      - name: Create database
+        run: mix ecto.create
+      
+      - name: Run migrations
+        run: mix ecto.migrate
+
+      - name: Clear test cache
+        run: rm -rf _build/test
+
+      - name: Run tests
+        run: mix coveralls.lcov --warnings-as-errors | sed -e ':a' -e 'N' -e '$!ba' -e 's/\(\(WARNING:\ Deleting data for module\|Analysis includes data from imported files\)[^]]*]\n\)//g'; exit ${PIPESTATUS[0]}
 
