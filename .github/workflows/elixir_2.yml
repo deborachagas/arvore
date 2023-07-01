@@ -18,8 +18,8 @@ jobs:
   build:
 
     name: Build and test
-    runs-on: self-hosted
-
+    runs-on: ubuntu-lasted
+    
     steps:
     # - uses: actions/checkout@v3
     # - name: Set up Elixir
