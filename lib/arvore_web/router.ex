@@ -21,6 +21,7 @@ defmodule ArvoreWeb.Router do
     scope "/v1", V1 do
       scope "/accounts", Accounts do
         post "/login", AuthenticationController, :login
+        resources "/users", UserController, only: [:create]
       end
     end
   end
@@ -30,7 +31,7 @@ defmodule ArvoreWeb.Router do
 
     scope "/v1", V1 do
       scope "/accounts", Accounts do
-        resources "/users", UserController
+        resources "/users", UserController, only: [:index, :show, :update, :delete]
       end
     end
 

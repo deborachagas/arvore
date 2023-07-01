@@ -231,3 +231,65 @@ basta ir até o navegador e acessar a página:
 ```
 http://localhost:4000/health
 ```
+
+# Funcionamento
+
+## Cadastrar um usuário
+
+```
+POST: http://localhost:4000/api/v1/accounts/users
+Body:
+{
+    "name": "name",
+    "login": "login",
+    "password": "password",
+    "type": "admin",
+    "email": "email@email.com"
+}
+Response:
+{
+  "data": {
+      "email": "email@email.com",
+      "id": 1,
+      "login": "login",
+      "name": "name",
+      "type": "admin"
+    }
+}
+```
+
+## Login
+
+```
+POST: http://localhost:4000/api/v1/accounts/login
+Body:
+{
+    "login": "login",
+    "password": "password"
+}
+Response:
+{
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
+}
+```
+
+## Acesso API com autenticação exemplo
+
+Usar o token gerado pelo endpoint de login
+
+```
+GET: http://localhost:4000/api/v2/partners/entities
+Headers:
+{
+  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
+}
+Body:
+{
+    "login": "login",
+    "password": "password"
+}
+Response:
+{
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
+}
+```
