@@ -20,10 +20,10 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu20]
         elixir: [1.14.4]
         otp: [25.2.3]
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     services:
       db:
