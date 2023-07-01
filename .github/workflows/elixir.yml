@@ -17,7 +17,6 @@ permissions:
 jobs:
   test:
     name: Build and test
-    runs-on: ubuntu-latest
 
     strategy:
       matrix:
