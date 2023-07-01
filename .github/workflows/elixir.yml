@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu20]
+        os: [ubuntu-lasted]
         elixir: [1.14.4]
         otp: [25.2.3]
 
@@ -53,7 +53,7 @@ jobs:
         env:
           # See:
           # https://github.com/erlef/setup-beam/blob/master/src/setup-beam.js#L340
-          ImageOS: ubuntu20
+          ImageOS: ubuntu-lasted
 
       - name: Install dependencies
         run: mix deps.get
