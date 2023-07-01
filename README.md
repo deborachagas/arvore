@@ -284,10 +284,7 @@ Headers:
   Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
 }
 Body:
-{
-    "login": "login",
-    "password": "password"
-}
+{}
 Response:
 {
   "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
