@@ -1,0 +1,22 @@
+{
+    "skip_files": [
+      "lib/arvore.ex",
+      "lib/arvore/application.ex",
+      "lib/arvore_web/endpoint.ex",
+      "lib/arvore/partners/entity_type.ex",
+      "lib/arvore/repo.ex",
+      "lib/arvore/scheduler.ex",
+      "lib/arvore/schema.ex",
+      "lib/arvore_web.ex",
+      "lib/arvore_web/telemetry.ex",
+      "lib/arvore_web/views/error_helper",
+      "lib/arvore_web/router.ex",
+      "lib/arvore_web/endpoint.ex ",
+      "lib/arvore_web/gettext.ex",
+      "test"
+    ],
+    "terminal_options": {
+      "file_column_width": 60
+    }
+  }
+  

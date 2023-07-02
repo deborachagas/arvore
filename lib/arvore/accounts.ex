@@ -139,7 +139,6 @@ defmodule Arvore.Accounts do
           {:ok, String.t()}
           | {:error, :user_not_found}
           | {:error, :invalid_password}
-          | {:error, String.t()}
   def login(login, password) do
     with %User{} = user <- Repo.get_by(User, login: login),
          true <- Bcrypt.verify_pass(password, user.password),

@@ -1,4 +1,4 @@
-defmodule ArvoreWeb.AuthenticationControllerTest do
+defmodule ArvoreWeb.V1.Accounts.AuthenticationControllerTest do
   use ArvoreWeb.ConnCase, async: true
 
   alias Arvore.Accounts

@@ -4,6 +4,8 @@ defmodule Arvore.AccountsTest do
   alias Arvore.Accounts
   alias Arvore.Accounts.User
 
+  import Mock
+
   @valid_attrs %{
     "name" => "name",
     "login" => "login",
@@ -31,6 +33,10 @@ defmodule Arvore.AccountsTest do
 
     test "returns nil with given id is nil" do
       assert Accounts.get_user(nil) == nil
+    end
+
+    test "returns nil with given id is not integer" do
+      assert Accounts.get_user("aa") == nil
     end
 
     test "returns nil with given id not exists" do
@@ -152,6 +158,13 @@ defmodule Arvore.AccountsTest do
     test "returns error when password is invalid", %{user: user} do
       assert {:error, :invalid_password} = Accounts.login(user.login, "teste")
     end
+
+    test "returns error generate token fail", %{user: user} do
+      with_mock Joken, generate_and_sign: fn _, _, _ -> {:error, "Fail to generate token"} end do
+        assert {:error, "Fail to generate token"} =
+                 Accounts.login(user.login, @valid_attrs["password"])
+      end
+    end
   end
 
   describe "validate_token/1" do
@@ -167,6 +180,13 @@ defmodule Arvore.AccountsTest do
 
     test "returns error with invalid jwt" do
       assert {:error, "Invalid token"} = Accounts.validate_token("jwt")
+    end
+
+    test "returns error with in jwt" do
+      with_mock Arvore.Accounts.ArvoreToken,
+        verify: fn _, _ -> {:error, [message: "Some Error", claim: nil, claim_val: nil]} end do
+        assert {:error, "Some Error"} = Accounts.validate_token("token")
+      end
     end
   end
 end

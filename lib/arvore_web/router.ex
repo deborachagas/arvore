@@ -6,9 +6,9 @@ defmodule ArvoreWeb.Router do
   end
 
   pipeline :auth do
-    if Mix.env() != :test do
-      plug ArvoreWeb.JwtAuthPlug
-    end
+    # if Mix.env() != :test do
+    plug ArvoreWeb.JwtAuthPlug
+    # end
   end
 
   scope "/", ArvoreWeb do

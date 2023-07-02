@@ -8,7 +8,7 @@ defmodule Arvore.Partners.EntityFactory do
       def entity_factory do
         %Entity{
           name: sequence("Nome da entidade"),
-          entity_type: "class",
+          entity_type: "school",
           inep: sequence("inep"),
           parent_id: nil
         }

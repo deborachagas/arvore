@@ -3,6 +3,12 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
 
   alias Arvore.Partners
 
+  import Mock
+
+  setup_with_mocks([{ArvoreWeb.JwtAuthPlug, [], [call: fn conn, _ -> conn end]}]) do
+    :ok
+  end
+
   describe "list entities" do
     test "return list of entities", %{conn: conn} do
       entity = insert(:entity)
@@ -13,8 +19,15 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
         |> json_response(:ok)
 
       [response_entity] = response["data"]
-      assert response_entity["name"] == entity.name
-      assert response_entity["entity_type"] == entity.entity_type
+
+      assert response_entity == %{
+               "entity_type" => entity.entity_type,
+               "id" => response_entity["id"],
+               "inep" => entity.inep,
+               "name" => entity.name,
+               "parent_id" => entity.parent_id,
+               "subtree_ids" => []
+             }
     end
 
     test "return empty list if has no entity", %{conn: conn} do
@@ -36,8 +49,35 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
         |> get(Routes.entity_path(conn, :show, entity.id))
         |> json_response(:ok)
 
-      assert response["data"]["name"] == entity.name
-      assert response["data"]["entity_type"] == entity.entity_type
+      assert response["data"] == %{
+               "entity_type" => entity.entity_type,
+               "id" => response["data"]["id"],
+               "inep" => entity.inep,
+               "name" => entity.name,
+               "parent_id" => entity.parent_id,
+               "subtree_ids" => []
+             }
+    end
+
+    test "return json entity by id when has subtree", %{conn: conn} do
+      entity_school = insert(:entity, entity_type: "school")
+
+      [%{id: entity_class_id_1}, %{id: entity_class_id_2}] =
+        insert_pair(:entity, entity_type: "class", inep: nil, parent_id: entity_school.id)
+
+      response =
+        conn
+        |> get(Routes.entity_path(conn, :show, entity_school.id))
+        |> json_response(:ok)
+
+      assert response["data"] == %{
+               "entity_type" => entity_school.entity_type,
+               "id" => response["data"]["id"],
+               "inep" => entity_school.inep,
+               "name" => entity_school.name,
+               "parent_id" => entity_school.parent_id,
+               "subtree_ids" => [entity_class_id_1, entity_class_id_2]
+             }
     end
 
     test "return not found error message when id not exists", %{conn: conn} do
@@ -60,8 +100,15 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
         |> json_response(:created)
 
       entity = Partners.get_entity(response["data"]["id"])
-      assert response["data"]["name"] == entity.name
-      assert response["data"]["entity_type"] == entity.entity_type
+
+      assert response["data"] == %{
+               "entity_type" => entity.entity_type,
+               "id" => response["data"]["id"],
+               "inep" => entity.inep,
+               "name" => entity.name,
+               "parent_id" => entity.parent_id,
+               "subtree_ids" => []
+             }
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -99,10 +146,14 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
         |> put(Routes.entity_path(conn, :update, entity.id, update_attrs))
         |> json_response(:ok)
 
-      assert response["data"]["name"] == "Teste update"
-      assert response["data"]["entity_type"] == "school"
-      assert response["data"]["inep"] == "789123"
-      assert response["data"]["parent_id"] == nil
+      assert response["data"] == %{
+               "entity_type" => update_attrs["entity_type"],
+               "id" => response["data"]["id"],
+               "inep" => update_attrs["inep"],
+               "name" => update_attrs["name"],
+               "parent_id" => nil,
+               "subtree_ids" => []
+             }
     end
 
     test "return errors when entity not found", %{conn: conn} do
@@ -148,8 +199,14 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
         |> delete(Routes.entity_path(conn, :delete, entity.id))
         |> json_response(:ok)
 
-      assert response["data"]["name"] == entity.name
-      assert response["data"]["entity_type"] == entity.entity_type
+      assert response["data"] == %{
+               "entity_type" => entity.entity_type,
+               "id" => response["data"]["id"],
+               "inep" => entity.inep,
+               "name" => entity.name,
+               "parent_id" => entity.parent_id,
+               "subtree_ids" => []
+             }
     end
 
     test "return errors when entity has associated data", %{conn: conn, entity: entity} do

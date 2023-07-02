@@ -46,7 +46,6 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
       |> render("show.json", user: user)
     else
       nil -> {:error, :not_found}
-      {:error, changeset} -> {:error, changeset}
     end
   end
 

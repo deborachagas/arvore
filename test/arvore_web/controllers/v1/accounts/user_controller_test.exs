@@ -1,5 +1,7 @@
-defmodule ArvoreWeb.AccountsUserControllerTest do
+defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
   use ArvoreWeb.ConnCase, async: true
+
+  import Mock
 
   @valid_attrs %{
     "name" => "name",
@@ -8,6 +10,10 @@ defmodule ArvoreWeb.AccountsUserControllerTest do
     "password" => "password",
     "type" => "admin"
   }
+
+  setup_with_mocks([{ArvoreWeb.JwtAuthPlug, [], [call: fn conn, _ -> conn end]}]) do
+    :ok
+  end
 
   describe "list users" do
     test "return json list of users", %{conn: conn} do

@@ -4,6 +4,7 @@ defmodule ArvoreWeb.JwtAuthPlug do
   """
   import Plug.Conn
   alias Arvore.Accounts
+  alias Phoenix.Controller
 
   def init(opts), do: opts
 
@@ -35,8 +36,8 @@ defmodule ArvoreWeb.JwtAuthPlug do
   defp forbidden(conn, error) do
     conn
     |> put_status(:unauthorized)
-    |> Phoenix.Controller.put_view(ArvoreWeb.ErrorView)
-    |> Phoenix.Controller.render("default_error.json", %{message: error})
+    |> Controller.put_view(ArvoreWeb.ErrorView)
+    |> Controller.render("default_error.json", %{message: error})
     |> halt
   end
 end
