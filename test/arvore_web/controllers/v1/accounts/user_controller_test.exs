@@ -3,6 +3,8 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
 
   import Mock
 
+  alias Arvore.Accounts
+
   @valid_attrs %{
     "name" => "name",
     "login" => "login",
@@ -25,8 +27,14 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
         |> json_response(:ok)
 
       [response_user] = response["data"]
-      assert response_user["name"] == user.name
-      assert response_user["login"] == user.login
+
+      assert response_user == %{
+               "email" => user.email,
+               "id" => response_user["id"],
+               "login" => user.login,
+               "name" => user.name,
+               "type" => user.type
+             }
     end
 
     test "return json empty list if has no user", %{conn: conn} do
@@ -48,8 +56,13 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
         |> get(Routes.user_path(conn, :show, user.id))
         |> json_response(:ok)
 
-      assert response["data"]["name"] == user.name
-      assert response["data"]["type"] == user.type
+      assert response["data"] == %{
+               "email" => user.email,
+               "id" => response["data"]["id"],
+               "login" => user.login,
+               "name" => user.name,
+               "type" => user.type
+             }
     end
 
     test "return not found error message when id not exists", %{conn: conn} do
@@ -69,8 +82,15 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
         |> post(Routes.user_path(conn, :create, @valid_attrs))
         |> json_response(:created)
 
-      assert response["data"]["name"] == @valid_attrs["name"]
-      assert response["data"]["type"] == @valid_attrs["type"]
+      user = Accounts.get_user(response["data"]["id"])
+
+      assert response["data"] == %{
+               "email" => user.email,
+               "id" => response["data"]["id"],
+               "login" => user.login,
+               "name" => user.name,
+               "type" => user.type
+             }
     end
 
     test "return json errors when data is invalid", %{conn: conn} do
@@ -104,10 +124,13 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
         |> put(Routes.user_path(conn, :update, user.id, @valid_attrs))
         |> json_response(:ok)
 
-      assert response["data"]["name"] == @valid_attrs["name"]
-      assert response["data"]["type"] == @valid_attrs["type"]
-      assert response["data"]["login"] == @valid_attrs["login"]
-      assert response["data"]["email"] == @valid_attrs["email"]
+      assert response["data"] == %{
+               "email" => @valid_attrs["email"],
+               "id" => response["data"]["id"],
+               "login" => @valid_attrs["login"],
+               "name" => @valid_attrs["name"],
+               "type" => @valid_attrs["type"]
+             }
     end
 
     test "return json errors when user not found", %{conn: conn} do
@@ -142,8 +165,13 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
         |> delete(Routes.user_path(conn, :delete, user.id))
         |> json_response(:ok)
 
-      assert response["data"]["name"] == user.name
-      assert response["data"]["type"] == user.type
+      assert response["data"] == %{
+               "email" => user.email,
+               "id" => response["data"]["id"],
+               "login" => user.login,
+               "name" => user.name,
+               "type" => user.type
+             }
     end
 
     test "return not found error message when id not exists", %{conn: conn} do
@@ -169,8 +197,13 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
         |> get(Routes.user_path(conn, :show, user.id))
         |> json_response(:ok)
 
-      assert response["data"]["name"] == user.name
-      assert response["data"]["type"] == user.type
+      assert response["data"] == %{
+               "email" => user.email,
+               "id" => response["data"]["id"],
+               "login" => user.login,
+               "name" => user.name,
+               "type" => user.type
+             }
     end
   end
 end
