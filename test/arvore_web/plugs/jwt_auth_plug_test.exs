@@ -5,9 +5,9 @@ defmodule ArvoreWeb.JwtAuthPlugTest do
 
   import Mock
 
-  alias Plug.Conn
   alias Arvore.Accounts.ArvoreToken
   alias Phoenix.Controller
+  alias Plug.Conn
 
   describe "call/2" do
     test "succes validate jwt and assign claims and jwt to conn", %{conn: conn} do
