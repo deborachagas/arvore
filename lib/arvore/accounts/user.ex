@@ -41,7 +41,7 @@ defmodule Arvore.Accounts.User do
     |> hash_password()
   end
 
-  defp hash_password(changeset) do
+  def hash_password(changeset) do
     password =
       case get_field(changeset, :password) do
         nil -> nil

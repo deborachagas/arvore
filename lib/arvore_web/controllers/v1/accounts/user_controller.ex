@@ -49,4 +49,16 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
       {:error, changeset} -> {:error, changeset}
     end
   end
+
+  def me(%{assigns: %{claims: claims}} = conn, _param) do
+    case Accounts.get_user(claims["sub"]) do
+      %User{} = user ->
+        conn
+        |> put_status(:ok)
+        |> render("show.json", user: user)
+
+      nil ->
+        {:error, :not_found}
+    end
+  end
 end

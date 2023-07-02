@@ -32,6 +32,7 @@ defmodule ArvoreWeb.Router do
     scope "/v1", V1 do
       scope "/accounts", Accounts do
         resources "/users", UserController, only: [:index, :show, :update, :delete]
+        get "/me", UserController, :me
       end
     end
 
