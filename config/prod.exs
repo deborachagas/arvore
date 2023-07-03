@@ -8,7 +8,7 @@ config :arvore, Arvore.Repo,
   username: "pmoass73_arvore",
   password: "Arvore@123",
   database: "pmoass73_arvore",
-  hostname: "",
+  hostname: "192.185.213.48",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
