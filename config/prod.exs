@@ -5,10 +5,10 @@ config :logger, level: :info
 
 # Configure your database
 config :arvore, Arvore.Repo,
-  username: "root",
-  password: "mysql",
-  database: "arvore_prod",
-  hostname: "db_mysql",
+  username: "pmoass73_arvore",
+  password: "Arvore@123",
+  database: "pmoass73_arvore",
+  hostname: "",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
