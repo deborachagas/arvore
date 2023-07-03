@@ -10,7 +10,7 @@ defmodule ArvoreWeb.V1.Accounts.AuthenticationController do
          password when not is_nil(password) <- Map.get(params, "password", nil),
          {:ok, token} <- Accounts.login(login, password) do
       conn
-      |> put_status(:ok)
+      |> put_status(:created)
       |> json(%{"jwt" => token})
     else
       nil -> {:error, :not_found}

@@ -23,7 +23,7 @@ defmodule ArvoreWeb.V1.Accounts.AuthenticationControllerTest do
             "password" => @valid_attrs["password"]
           })
         )
-        |> json_response(:ok)
+        |> json_response(:created)
 
       assert %{"jwt" => _jwt} = response
     end
