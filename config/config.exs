@@ -13,7 +13,6 @@ config :arvore,
 # Configures the endpoint
 config :arvore, ArvoreWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "SQWYbcvzDUdAzC1HouzZAO9t+GUpwi3/Xzc/M9ZcjXVzd67+bJ0Eu41NyD6k5JvR",
   render_errors: [view: ArvoreWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Arvore.PubSub,
   live_view: [signing_salt: "wzuMxz7V"]

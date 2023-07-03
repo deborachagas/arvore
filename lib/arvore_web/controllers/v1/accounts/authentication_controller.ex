@@ -11,7 +11,7 @@ defmodule ArvoreWeb.V1.Accounts.AuthenticationController do
          {:ok, token} <- Accounts.login(login, password) do
       conn
       |> put_status(:created)
-      |> json(%{"jwt" => token})
+      |> json(%{"data" => %{"jwt" => token}})
     else
       nil -> {:error, :not_found}
       error -> error

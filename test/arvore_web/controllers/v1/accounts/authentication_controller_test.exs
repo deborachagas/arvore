@@ -25,7 +25,7 @@ defmodule ArvoreWeb.V1.Accounts.AuthenticationControllerTest do
         )
         |> json_response(:created)
 
-      assert %{"jwt" => _jwt} = response
+      assert %{"data" => %{"jwt" => _jwt}} = response
     end
 
     test "return error when user password is invalid", %{conn: conn} do
