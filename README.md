@@ -1,3 +1,8 @@
+- [Case Técnico Árvore](#case-tecnico-arvore)
+- [Configurar o projeto](#configurar-o-projeto)
+- [Funcionamento](#funcionamento)
+- [Tecnologias utilizadas](#tecnologias-utilizadas)
+
 # Case Técnico Árvore
 
 ## Objetivo:
@@ -225,7 +230,7 @@ mix ecto.setup
 mix phx.server
 ```
 
-* * Para verificar se está tudo funcionando corretamente, após o servidor terminar de iniciar, 
+* Para verificar se está tudo funcionando corretamente, após o servidor terminar de iniciar, 
 basta ir até o navegador e acessar a página:
 
 
@@ -361,7 +366,7 @@ GET: https://teste-debora-arvore.fly.dev/graphiql
   }
 ```
 
-# Desenvolvimento
+# Tecnologias utilizadas
 
 - Docker para rodar container do banco de dados mysql e do elixir
 - Testes Automatizados, validação da cobertura de código com o plug excoveralls - [TOTAL]  96.4%
@@ -372,10 +377,8 @@ GET: https://teste-debora-arvore.fly.dev/graphiql
   - Faz os testes automatizados
   - Faz os testes E2E
   - Caso de tudo certo realiza o deploy da aplicação no fly.io, se não passar, não faz o deploy
-
 - Autenticação da API
   - Criptografia da senha do usuário com o plug bcrypt_elixir
   - Autorização da API com token JWT utilizando um plug na rota
   - Autenticação do jwt utilizando o plug joken
-
 - Implementação de graphiql utilizando plug absinthe

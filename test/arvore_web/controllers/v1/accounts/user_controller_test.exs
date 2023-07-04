@@ -188,9 +188,10 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
     test "return json user by logged user", %{conn: conn} do
       user = insert(:user)
 
-      conn = conn
-      |> assign(:claims, %{"sub" => user.id})
-      |> assign(:jwt, "token")
+      conn =
+        conn
+        |> assign(:claims, %{"sub" => user.id})
+        |> assign(:jwt, "token")
 
       response =
         conn
@@ -207,9 +208,10 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
     end
 
     test "return not found error", %{conn: conn} do
-      conn = conn
-      |> assign(:claims, %{"sub" => 1})
-      |> assign(:jwt, "token")
+      conn =
+        conn
+        |> assign(:claims, %{"sub" => 1})
+        |> assign(:jwt, "token")
 
       response =
         conn

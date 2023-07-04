@@ -9,7 +9,7 @@ defmodule ArvoreWeb.Schema do
 
   query do
     @desc "Get all entities"
-    field :all_entities, non_null(list_of(non_null(:entity))) do
+    field :all_entities, list_of((:entity)) do
       resolve(&Partner.all_entities/3)
     end
 
@@ -29,6 +29,13 @@ defmodule ArvoreWeb.Schema do
       arg(:parent_id, :integer)
 
       resolve(&Partner.create_entity/3)
+    end
+
+    @desc "Delete a entity"
+    field :delete_entity, :entity do
+      arg(:id, non_null(:id))
+
+      resolve(&Partner.delete_entity/3)
     end
   end
 end
