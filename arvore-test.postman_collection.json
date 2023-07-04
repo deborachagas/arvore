@@ -27,7 +27,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:4000/health"
+				"url": "{{url}}/health"
 			},
 			"response": []
 		},
@@ -69,7 +69,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v1/accounts/users"
+				"url": "{{url}}/api/v1/accounts/users"
 			},
 			"response": []
 		},
@@ -112,7 +112,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v1/accounts/users"
+				"url": "{{url}}/api/v1/accounts/users"
 			},
 			"response": []
 		},
@@ -149,7 +149,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v1/accounts/login"
+				"url": "{{url}}/api/v1/accounts/login"
 			},
 			"response": []
 		},
@@ -188,7 +188,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v1/accounts/login"
+				"url": "{{url}}/api/v1/accounts/login"
 			},
 			"response": []
 		},
@@ -226,7 +226,7 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:4000/api/v2/partners/entities"
+				"url": "{{url}}/api/v2/partners/entities"
 			},
 			"response": []
 		},
@@ -272,7 +272,7 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://localhost:4000/api/v2/partners/entities/{{entity-id}}"
+				"url": "{{url}}/api/v2/partners/entities/{{entity-id}}"
 			},
 			"response": []
 		},
@@ -315,7 +315,7 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://localhost:4000/api/v2/partners/entities/111111111"
+				"url": "{{url}}/api/v2/partners/entities/111111111"
 			},
 			"response": []
 		},
@@ -363,7 +363,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v2/partners/entities"
+				"url": "{{url}}/api/v2/partners/entities"
 			},
 			"response": []
 		},
@@ -410,7 +410,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v2/partners/entities"
+				"url": "{{url}}/api/v2/partners/entities"
 			},
 			"response": []
 		},
@@ -460,7 +460,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v2/partners/entities/{{new-entity-id}}"
+				"url": "{{url}}/api/v2/partners/entities/{{new-entity-id}}"
 			},
 			"response": []
 		},
@@ -505,7 +505,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v2/partners/entities/1111111111"
+				"url": "{{url}}/api/v2/partners/entities/1111111111"
 			},
 			"response": []
 		},
@@ -550,7 +550,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:4000/api/v2/partners/entities/{{new-entity-id}}"
+				"url": "{{url}}/api/v2/partners/entities/{{new-entity-id}}"
 			},
 			"response": []
 		},
@@ -590,7 +590,7 @@
 				},
 				"method": "DELETE",
 				"header": [],
-				"url": "http://localhost:4000/api/v2/partners/entities/{{new-entity-id}}"
+				"url": "{{url}}/api/v2/partners/entities/{{new-entity-id}}"
 			},
 			"response": []
 		},
@@ -626,7 +626,7 @@
 				},
 				"method": "DELETE",
 				"header": [],
-				"url": "http://localhost:4000/api/v2/partners/entities/111111111"
+				"url": "{{url}}/api/v2/partners/entities/111111111"
 			},
 			"response": []
 		},
@@ -662,7 +662,7 @@
 				},
 				"method": "DELETE",
 				"header": [],
-				"url": "http://localhost:4000/api/v2/partners/entities/1"
+				"url": "{{url}}/api/v2/partners/entities/1"
 			},
 			"response": []
 		},
@@ -693,7 +693,7 @@
 				},
 				"method": "DELETE",
 				"header": [],
-				"url": "http://localhost:4000/api/v1/accounts/users/{{user-id}}"
+				"url": "{{url}}/api/v1/accounts/users/{{user-id}}"
 			},
 			"response": []
 		}
@@ -712,7 +712,7 @@
 					"    key: \"Accept\",",
 					"    value: \"application/json\"",
 					"})",
-					""
+					"pm.globals.set(\"url\", \"https://teste-debora-arvore.fly.dev\");"
 				]
 			}
 		},

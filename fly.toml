@@ -1,17 +1,17 @@
-# fly.toml app configuration file generated for spring-darkness-8490 on 2023-07-03T18:04:42-03:00
+# fly.toml app configuration file generated for teste-debora-arvore on 2023-07-03T20:38:06-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "spring-darkness-8490"
+app = "teste-debora-arvore"
 primary_region = "gru"
 kill_signal = "SIGTERM"
 
-[deploy]
-  release_command = "/app/bin/migrate"
+[processes]
+  app = "/bin/sh -c '/app/bin/migrate && /app/bin/server'"
 
 [env]
-  PHX_HOST = "spring-darkness-8490.fly.dev"
+  PHX_HOST = "teste-debora-arvore.fly.dev"
   PORT = "8080"
 
 [http_service]

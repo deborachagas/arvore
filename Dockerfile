@@ -52,6 +52,8 @@ COPY lib lib
 # Compile the release
 RUN mix compile
 
+# EXPOSE 4000
+
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
 
@@ -85,13 +87,25 @@ USER nobody
 
 CMD ["/app/bin/server"]
 
-# Appended by flyctl
-ENV ECTO_IPV6 true
-ENV ERL_AFLAGS "-proto_dist inet6_tcp"
+# # Appended by flyctl
+# ENV ECTO_IPV6 true
+# ENV ERL_AFLAGS "-proto_dist inet6_tcp"
 
-# Appended by flyctl
-ENV ECTO_IPV6 true
-ENV ERL_AFLAGS "-proto_dist inet6_tcp"
+# # Appended by flyctl
+# ENV ECTO_IPV6 true
+# ENV ERL_AFLAGS "-proto_dist inet6_tcp"
+
+# # Appended by flyctl
+# ENV ECTO_IPV6 true
+# ENV ERL_AFLAGS "-proto_dist inet6_tcp"
+
+# # Appended by flyctl
+# ENV ECTO_IPV6 true
+# ENV ERL_AFLAGS "-proto_dist inet6_tcp"
+
+# # Appended by flyctl
+# ENV ECTO_IPV6 true
+# ENV ERL_AFLAGS "-proto_dist inet6_tcp"
 
 # Appended by flyctl
 ENV ECTO_IPV6 true
