@@ -1033,8 +1033,8 @@
 					"    key: \"Accept\",",
 					"    value: \"application/json\"",
 					"})",
-					"// pm.globals.set(\"url\", \"https://teste-debora-arvore.fly.dev\");",
-					"pm.globals.set(\"url\", \"http://localhost:4000\");"
+					"pm.globals.set(\"url\", \"https://teste-debora-arvore.fly.dev\");",
+					"// pm.globals.set(\"url\", \"http://localhost:4000\");"
 				]
 			}
 		},
