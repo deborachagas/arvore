@@ -101,8 +101,7 @@
 									"});",
 									"pm.test(\"validate json response\", function () {",
 									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
-									"});",
-									""
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -115,39 +114,6 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "{\n  allEntities {\n    id\n    name\n    inep\n    entityType\n    parent {\n        id\n        name\n    }\n    subtree {\n        id\n        name\n    }\n  }\n}",
-								"variables": ""
-							}
-						},
-						"url": "{{url}}/graphiql"
-					},
-					"response": []
-				},
-				{
-					"name": "gpl-entity-create",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status test\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"validate json response\", function () {",
-									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation {\n  createEntity(\n    name: \"entity\",\n    entityType: \"network\",\n  ) {\n    id\n    name\n    entity_type\n    inep\n    parent_id\n  }\n}",
 								"variables": ""
 							}
 						},
@@ -180,7 +146,42 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "{\n  findEntity(id: 2) {\n    id\n    name\n    inep\n    entityType\n    parent {\n        id\n        name\n    }\n    subtree {\n        id\n        name\n    }\n  }\n}",
+								"query": "{\n  findEntity(id: 1) {\n    id\n    name\n    inep\n    entityType\n    parent {\n        id\n        name\n    }\n    subtree {\n        id\n        name\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": "{{url}}/graphiql"
+					},
+					"response": []
+				},
+				{
+					"name": "gpl-entity-create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"validate json response\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"var jsonData = pm.response.json().data.createEntity",
+									"pm.environment.set(\"new-entity-id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n  createEntity(\n    name: \"entity\",\n    entityType: \"network\",\n  ) {\n    id\n    name\n    entity_type\n    inep\n    parent_id\n  }\n}",
 								"variables": ""
 							}
 						},

@@ -306,3 +306,77 @@ Response:
     }
   }
 ```
+
+## Acesso API graphiql exemplo
+
+Usar o token gerado pelo endpoint de login
+
+```
+GET: https://teste-debora-arvore.fly.dev/graphiql
+  Headers:
+  {
+    Content-Type: application/json
+    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
+  }
+
+  Query:
+  {
+    allEntities {
+      id
+      name
+      inep
+      entityType
+      parent {
+          id
+          name
+      }
+      subtree {
+          id
+          name
+      }
+    }
+  }
+
+  Response:
+  "data": {
+    "allEntities": [
+      {
+        "entityType": "network",
+        "id": "1",
+        "inep": null,
+        "name": "Networ01",
+        "parent": null,
+        "subtree": [
+          {
+              "id": "3",
+              "name": "School01"
+          },
+          {
+              "id": "4",
+              "name": "School02"
+          }
+        ]
+      }
+    ]
+  }
+```
+
+# Desenvolvimento
+
+- Docker para rodar container do banco de dados mysql e do elixir
+- Testes Automatizados
+- Testes E2E utilizando o Postman
+- Validação da cobertura de código com o plug excoveralls
+- Validação da estrutura do código com o plug credo
+- Github CI para integração contínua
+  - Faz o build da aplicação
+  - Faz os testes automatizados
+  - Faz os testes E2E
+  - Caso de tudo certo realiza o deploy da aplicação no fly.io, se não passar, não faz o deploy
+
+- Autenticação da API
+  - Criptografia da senha do usuário com o plug bcrypt_elixir
+  - Autorização da API com token JWT utilizando um plug na rota
+  - Autenticação do jwt utilizando o plug joken
+  
+- Implementação de graphiql utilizando plug absinthe
