@@ -364,9 +364,8 @@ GET: https://teste-debora-arvore.fly.dev/graphiql
 # Desenvolvimento
 
 - Docker para rodar container do banco de dados mysql e do elixir
-- Testes Automatizados
+- Testes Automatizados, validação da cobertura de código com o plug excoveralls - [TOTAL]  96.4%
 - Testes E2E utilizando o Postman
-- Validação da cobertura de código com o plug excoveralls - [TOTAL]  94.2%
 - Validação da estrutura do código com o plug credo
 - Github CI para integração contínua
   - Faz o build da aplicação

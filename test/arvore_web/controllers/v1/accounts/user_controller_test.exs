@@ -188,22 +188,35 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
     test "return json user by logged user", %{conn: conn} do
       user = insert(:user)
 
-      conn
+      conn = conn
       |> assign(:claims, %{"sub" => user.id})
       |> assign(:jwt, "token")
 
       response =
         conn
-        |> get(Routes.user_path(conn, :show, user.id))
+        |> get(Routes.user_path(conn, :me))
         |> json_response(:ok)
 
       assert response["data"] == %{
                "email" => user.email,
-               "id" => response["data"]["id"],
+               "id" => user.id,
                "login" => user.login,
                "name" => user.name,
                "type" => user.type
              }
+    end
+
+    test "return not found error", %{conn: conn} do
+      conn = conn
+      |> assign(:claims, %{"sub" => 1})
+      |> assign(:jwt, "token")
+
+      response =
+        conn
+        |> get(Routes.user_path(conn, :me))
+        |> json_response(:not_found)
+
+      assert response == %{"error" => "Not found"}
     end
   end
 end
