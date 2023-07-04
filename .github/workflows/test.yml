@@ -71,7 +71,7 @@ jobs:
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
         
-      - name: Run API tests
+      - name: E2E Test
         run: |
           postman collection run arvore-test.postman_collection.json
 
