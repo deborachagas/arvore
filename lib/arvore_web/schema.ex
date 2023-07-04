@@ -9,7 +9,7 @@ defmodule ArvoreWeb.Schema do
 
   query do
     @desc "Get all entities"
-    field :all_entities, list_of((:entity)) do
+    field :all_entities, list_of(:entity) do
       resolve(&Partner.all_entities/3)
     end
 
@@ -29,6 +29,17 @@ defmodule ArvoreWeb.Schema do
       arg(:parent_id, :integer)
 
       resolve(&Partner.create_entity/3)
+    end
+
+    @desc "Update a entity"
+    field :update_entity, :entity do
+      arg(:id, non_null(:id))
+      arg(:name, :string)
+      arg(:entity_type, :string)
+      arg(:inep, :string)
+      arg(:parent_id, :integer)
+
+      resolve(&Partner.update_entity/3)
     end
 
     @desc "Delete a entity"
