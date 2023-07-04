@@ -2,10 +2,265 @@
 	"info": {
 		"_postman_id": "4f3050d5-0ce5-4173-9d8e-fa2af8971e20",
 		"name": "arvore-test",
+		"description": "Documentação API teste árvore",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "17915674"
 	},
 	"item": [
+		{
+			"name": "graphiql",
+			"item": [
+				{
+					"name": "user-create-success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"validate json response\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"user\", jsonData.data);",
+									"pm.environment.set(\"user-id\", jsonData.data.id);",
+									"pm.environment.set(\"user-login\", jsonData.data.login);",
+									"pm.environment.set(\"user-password\", \"senha\");",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"teste-postman\",\n    \"login\": \"teste-postman\",\n    \"password\": \"senha\",\n    \"type\": \"admin\",\n    \"email\": \"test-postman@teste.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/api/v1/accounts/users"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"validate json response\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"var jsonData = pm.response.json().data;",
+									"pm.environment.set(\"token\", jsonData.jwt);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"{{user-login}}\",\n    \"password\": \"{{user-password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/api/v1/accounts/login"
+					},
+					"response": []
+				},
+				{
+					"name": "gpl-entity-index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"validate json response\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n  allEntities {\n    id\n    name\n    inep\n    entityType\n    parent {\n        id\n        name\n    }\n    subtree {\n        id\n        name\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": "{{url}}/graphiql"
+					},
+					"response": []
+				},
+				{
+					"name": "gpl-entity-create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"validate json response\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n  createEntity(\n    name: \"entity\",\n    entityType: \"network\",\n  ) {\n    id\n    name\n    entity_type\n    inep\n    parent_id\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": "{{url}}/graphiql"
+					},
+					"response": []
+				},
+				{
+					"name": "gpl-entity-show",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"validate json response\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n  findEntity(id: 2) {\n    id\n    name\n    inep\n    entityType\n    parent {\n        id\n        name\n    }\n    subtree {\n        id\n        name\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": "{{url}}/graphiql"
+					},
+					"response": []
+				},
+				{
+					"name": "entity-delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"validate json response\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"var jsonData = pm.response.json().data;",
+									"pm.test(\"validate entity values\", function () {   ",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"new-entity-id\")); ",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"new-entity-name\"));",
+									"    pm.expect(jsonData.inep).to.eql(pm.environment.get(\"new-entity-inep\"));",
+									"    pm.expect(jsonData.parent_id).to.eql(pm.environment.get(\"new-entity-parent-id\"));",
+									"    pm.expect(jsonData.entity_type).to.eql(pm.environment.get(\"new-entity-type\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/api/v2/partners/entities/{{new-entity-id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "user-delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"validate json response\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/api/v1/accounts/users/{{user-id}}"
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "health",
 			"event": [
@@ -712,7 +967,8 @@
 					"    key: \"Accept\",",
 					"    value: \"application/json\"",
 					"})",
-					"pm.globals.set(\"url\", \"https://teste-debora-arvore.fly.dev\");"
+					"pm.globals.set(\"url\", \"https://teste-debora-arvore.fly.dev\");",
+					"// pm.globals.set(\"url\", \"http://localhost:4000\");"
 				]
 			}
 		},

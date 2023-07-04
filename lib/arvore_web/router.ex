@@ -14,7 +14,7 @@ defmodule ArvoreWeb.Router do
   end
 
   scope "/" do
-    pipe_through :api
+    pipe_through [:api, :auth]
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
       schema: ArvoreWeb.Schema,
