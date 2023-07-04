@@ -1,4 +1,5 @@
-name: Automated API tests using Postman CLI
+name: Árvore Teste E2E
+id: test-e2e
 
 on: push
 

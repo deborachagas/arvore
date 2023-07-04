@@ -1,4 +1,5 @@
-name: Árvore Testes
+name: Árvore Testes Integração
+id: test-integration
 on:
   push
 jobs:
