@@ -17,8 +17,8 @@ defmodule Arvore.PartnersTest do
 
   describe "get_entity/0" do
     test "returns the entity with given id" do
-      entity = insert(:entity)
-      assert Partners.get_entity(entity.id) == entity
+      %Entity{id: entity_id} = insert(:entity)
+      assert %{id: ^entity_id} = Partners.get_entity(entity_id)
     end
 
     test "returns nil with given id is nil" do

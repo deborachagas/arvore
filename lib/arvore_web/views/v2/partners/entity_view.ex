@@ -16,7 +16,10 @@ defmodule ArvoreWeb.V2.Partners.EntityView do
       inep: entity.inep,
       entity_type: entity.entity_type,
       parent_id: entity.parent_id,
-      subtree_ids: Enum.map(entity.subtree, & &1.id)
+      subtree_ids: get_subtree_ids(entity.subtree)
     }
   end
+
+  defp get_subtree_ids(subtree) when is_list(subtree), do: Enum.map(subtree, & &1.id)
+  defp get_subtree_ids(_), do: []
 end

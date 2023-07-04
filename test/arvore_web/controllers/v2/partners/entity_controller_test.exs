@@ -190,7 +190,7 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
 
   describe "delete entity" do
     setup do
-      {:ok, entity: insert(:entity, entity: insert(:entity, entity_type: "network"))}
+      {:ok, entity: insert(:entity, parent: insert(:entity, entity_type: "network"))}
     end
 
     test "return json entity when deleted", %{conn: conn, entity: entity} do

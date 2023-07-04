@@ -1,4 +1,6 @@
 defmodule ArvoreWeb.Schema.EntityTypes do
+  @moduledoc false
+
   use Absinthe.Schema.Notation
 
   @desc "A entity of the partner"
