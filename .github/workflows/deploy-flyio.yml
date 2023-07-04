@@ -1,11 +1,11 @@
 name: Árvore deploy para fly.id
-id: deloy-flyio
 on:
   push:
     branches: main
 jobs:
   deploy:
     name: Deploy app
+    id: deloy-flyio
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

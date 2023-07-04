@@ -1,10 +1,9 @@
 name: Árvore Testes Integração
-id: test-integration
-on:
-  push
+on: push
 jobs:
   test:
     name: Build and Test
+    id: test-integration
     strategy:
       matrix:
         os: [ubuntu-20.04]

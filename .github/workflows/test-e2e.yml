@@ -1,10 +1,8 @@
 name: Árvore Teste E2E
-id: test-e2e
-
 on: push
-
 jobs:
   automated-api-tests:
+    id: test-e2e
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
