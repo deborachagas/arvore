@@ -169,7 +169,7 @@
 									"});",
 									"",
 									"var jsonData = pm.response.json().data.createEntity",
-									"pm.environment.set(\"new-entity-id\", jsonData.id);"
+									"pm.environment.set(\"new-entity-id\", parseInt(jsonData.id));"
 								],
 								"type": "text/javascript"
 							}
