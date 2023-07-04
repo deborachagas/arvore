@@ -11,6 +11,8 @@ jobs:
         otp: ['25']
         elixir: ['1.15.0']
     runs-on: ${{ matrix.os }}
+    outputs:
+      test-integration_id: ${{ steps.test-integration_step.outputs.test-integration_id }}
 
     services:
       db:
@@ -81,7 +83,7 @@ jobs:
     name: Deploy app
     needs: [test-integration, test-e2e]
     runs-on: ubuntu-latest
-    if: ${{ failure() }}
+    if: ${{ success() }}
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
