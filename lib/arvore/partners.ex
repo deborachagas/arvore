@@ -23,7 +23,7 @@ defmodule Arvore.Partners do
 
   """
   @spec list_entities() :: nil | [Entity.t()]
-  def list_entities, do: Repo.all(Entity)
+  def list_entities, do: Entity |> Repo.all() |> Repo.preload([:parent, :subtree])
 
   @doc """
   Gets a single entity.
@@ -53,7 +53,7 @@ defmodule Arvore.Partners do
     end
   end
 
-  def get_entity(id), do: Repo.get(Entity, id)
+  def get_entity(id), do: Entity |> Repo.get(id) |> Repo.preload([:parent, :subtree])
 
   @doc """
   Creates a entity.

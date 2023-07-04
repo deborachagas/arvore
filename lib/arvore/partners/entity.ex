@@ -13,7 +13,7 @@ defmodule Arvore.Partners.Entity do
           inep: String.t(),
           name: String.t(),
           entity_type: String.t(),
-          entity: __MODULE__.t(),
+          parent: __MODULE__.t(),
           parent_id: integer()
         }
 
@@ -27,7 +27,7 @@ defmodule Arvore.Partners.Entity do
     field :inep, :string
     field :name, :string
     belongs_to(:entity_type_table, EntityType, type: :string, foreign_key: :entity_type)
-    belongs_to(:entity, __MODULE__, foreign_key: :parent_id)
+    belongs_to(:parent, __MODULE__, foreign_key: :parent_id)
     has_many(:subtree, __MODULE__, foreign_key: :parent_id)
     has_many(:users, User)
 

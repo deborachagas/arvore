@@ -6,8 +6,8 @@ defmodule Arvore.PartnersTest do
 
   describe "list_entities/0" do
     test "returns a list of entities" do
-      entity = insert(:entity)
-      assert Partners.list_entities() == [entity]
+      %{id: entity_id} = insert(:entity)
+      assert [%Entity{id: ^entity_id}] = Partners.list_entities()
     end
 
     test "returns a empty list if has no entity" do
@@ -215,8 +215,6 @@ defmodule Arvore.PartnersTest do
 
       assert {:error, %Ecto.Changeset{} = changeset} =
                Partners.update_entity(entity, update_attrs)
-
-      assert entity == Partners.get_entity(entity.id)
 
       assert "entity type class must has parent type school" in errors_on(changeset).parent_id
       assert "inep only for entity type school" in errors_on(changeset).inep

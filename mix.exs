@@ -59,7 +59,7 @@ defmodule Arvore.MixProject do
       {:joken, "~> 2.0-rc0"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
-      {:absinthe, "~> 1.6"},
+      {:absinthe, "~> 1.7.3", override: true},
       {:absinthe_plug, "~> 1.5"},
       {:mock, "~> 0.3.8", only: :test}
     ]

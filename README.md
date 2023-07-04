@@ -228,16 +228,20 @@ mix phx.server
 * * Para verificar se está tudo funcionando corretamente, após o servidor terminar de iniciar, 
 basta ir até o navegador e acessar a página:
 
-```
-http://localhost:4000/health
-```
+
+[http://localhost:4000/health](http://localhost:4000/health)
+
 
 # Funcionamento
+
+## Endereço API:
+
+[https://teste-debora-arvore.fly.dev/health](https://teste-debora-arvore.fly.dev/health)
 
 ## Cadastrar um usuário
 
 ```
-POST: http://localhost:4000/api/v1/accounts/users
+POST:https://teste-debora-arvore.fly.dev/api/v1/accounts/users
 Body:
 {
     "name": "name",
@@ -261,16 +265,21 @@ Response:
 ## Login
 
 ```
-POST: http://localhost:4000/api/v1/accounts/login
+POST:https://teste-debora-arvore.fly.dev/api/v1/accounts/login
+Headers:
+  { Content-Type: application/json }
 Body:
-{
-    "login": "login",
-    "password": "password"
-}
+  {
+      "login": "login",
+      "password": "password"
+  }
 Response:
-{
-  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
-}
+  {
+    "data":
+      {
+        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
+      }
+  }
 ```
 
 ## Acesso API com autenticação exemplo
@@ -278,21 +287,22 @@ Response:
 Usar o token gerado pelo endpoint de login
 
 ```
-GET: http://localhost:4000/api/v2/partners/entities/:id_entity
-Headers:
-{
-  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
-}
+GET: https://teste-debora-arvore.fly.dev/api/v2/partners/entities/:id_entity
+  Headers:
+  {
+    Content-Type: application/json
+    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
+  }
 
 Response:
-{
-  "data": {
-    "id": 2,
-    "entity_type": "school",
-    "inep": "123456",
-    "name": "Escola Exemplo",
-    "parent_id": null,
-    "subtree_ids": [3, 4]
+  {
+    "data": {
+      "id": 2,
+      "entity_type": "school",
+      "inep": "123456",
+      "name": "Escola Exemplo",
+      "parent_id": null,
+      "subtree_ids": [3, 4]
+    }
   }
-}
 ```

@@ -6,13 +6,20 @@ defmodule ArvoreWeb.Router do
   end
 
   pipeline :auth do
-    # if Mix.env() != :test do
     plug ArvoreWeb.JwtAuthPlug
-    # end
   end
 
   scope "/", ArvoreWeb do
     get "/health", HealthCheckController, :health
+  end
+
+  scope "/" do
+    pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: ArvoreWeb.Schema,
+      interface: :simple,
+      context: %{pubsub: ArvoreWeb.Endpoint}
   end
 
   scope "/api", ArvoreWeb do
