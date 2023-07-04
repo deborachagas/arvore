@@ -62,14 +62,3 @@ jobs:
       - name: Run tests
         run: mix coveralls.lcov --warnings-as-errors | sed -e ':a' -e 'N' -e '$!ba' -e 's/\(\(WARNING:\ Deleting data for module\|Analysis includes data from imported files\)[^]]*]\n\)//g'; exit ${PIPESTATUS[0]}
 
-      - name: Install Postman CLI
-        run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-
-      - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-        
-      - name: E2E Test
-        run: |
-          postman collection run arvore-test.postman_collection.json
-
