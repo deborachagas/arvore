@@ -1,0 +1,25 @@
+
+name: Run CI
+on: push
+
+jobs:
+  test-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Integration Test
+        run: ./test-integration
+
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run E2E Test
+        run: ./test-e2e
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Deploy Flyio
+        run: ./deloy-flyio
