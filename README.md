@@ -250,7 +250,8 @@ basta ir até o navegador e acessar a página:
 </details>
 <details>
   <summary>Acesso API</summary>
-
+  
+- URL - [https://teste-debora-arvore.fly.dev](https://teste-debora-arvore.fly.dev)
 - Criar um usuário, para isso não é necessário estar autenticado - [link](https://teste-debora-arvore.fly.dev/api/swagger/index.html#/User/ArvoreWeb_V1_Accounts_UserController_create)
 - Logar na api com o usuário criado - [link](https://teste-debora-arvore.fly.dev/api/swagger/index.html#/Authentication/ArvoreWeb_V1_Accounts_AuthenticationController_login)
 - Passar o jwt gerado no header Authorization "Bearer Token"
