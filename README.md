@@ -148,6 +148,10 @@ Body:
 <details>
   <summary>Rodar o projeto usando o docker</summary>
 
+* Pré-requisitos:
+
+  * Instalar [docker](https://docs.docker.com/engine/install/)
+
 * Clonar o projeto
 
 ```
@@ -159,10 +163,6 @@ git clone https://github.com/deborachagas/arvore.git
 ```
 cd arvore
 ```
-
-* Pré-requisitos:
-
-  * Instalar [docker](https://docs.docker.com/engine/install/)
 
 * Execute a imagem do Dockerfile:
 
@@ -193,6 +193,12 @@ http://localhost:4000/health
 <details>
   <summary>Rodar o projeto localmente</summary>
 
+* Pré-requisitos:
+
+  * Instalar [erlang](https://github.com/asdf-vm/asdf-erlang);
+  * Instalar [elixir](https://github.com/asdf-vm/asdf-elixir);
+  * Instalar [postgres](https://www.postgresql.org/download/);
+
 * Clonar o projeto
 
 ```
@@ -204,12 +210,6 @@ git clone https://github.com/deborachagas/arvore.git
 ```
 cd arvore
 ```
-
-* Pré-requisitos:
-
-  * Instalar [erlang](https://github.com/asdf-vm/asdf-erlang);
-  * Instalar [elixir](https://github.com/asdf-vm/asdf-elixir);
-  * Instalar [postgres](https://www.postgresql.org/download/);
 
 * Instalar as dependências: 
 
@@ -256,19 +256,22 @@ Documentação da api gerado com o plug phoenix_swagger:
 
 </details>
 <details>
+  <summary>Acesso API</summary>
+1 - Criar um usuário, para isso não é necessário estar autenticado - [documentacao](https://teste-debora-arvore.fly.dev/api/swagger/index.html#/User/ArvoreWeb_V1_Accounts_UserController_create)
+2 - Logar na api com o usuário criado - [documentacao](https://teste-debora-arvore.fly.dev/api/swagger/index.html#/Authentication/ArvoreWeb_V1_Accounts_AuthenticationController_login)
+3 - Passar o jwt gerado no header Authorization "Bearer Token"
+</details>
+<details>
   <summary>API Graphiql exemplo</summary>
 
-Usar o token gerado pelo endpoint de login
+* Usar o token gerado pelo endpoint de login no header Authorization "Bearer Token"
+* POST: https://teste-debora-arvore.fly.dev/graphiql
+
+# Queries:
+
+* Listar todos as entidades
 
 ```
-GET: https://teste-debora-arvore.fly.dev/graphiql
-  Headers:
-  {
-    Content-Type: application/json
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
-  }
-
-  Query:
   {
     allEntities {
       id
@@ -285,30 +288,81 @@ GET: https://teste-debora-arvore.fly.dev/graphiql
       }
     }
   }
-
-  Response:
-  "data": {
-    "allEntities": [
-      {
-        "entityType": "network",
-        "id": "1",
-        "inep": null,
-        "name": "Networ01",
-        "parent": null,
-        "subtree": [
-          {
-              "id": "3",
-              "name": "School01"
-          },
-          {
-              "id": "4",
-              "name": "School02"
-          }
-        ]
-      }
-    ]
-  }
 ```
+
+* Retornar uma entidade pelo id
+
+```
+query entity($id: ID!){
+  findEntity(id: $id) {
+    id
+    name
+    inep
+    entityType
+    parent {
+        id
+        name
+    }
+    subtree {
+        id
+        name
+    }
+  }
+}
+```
+
+* Criar uma entidade
+
+
+```
+mutation createEntity{
+  createEntity(
+      name: "new entity network",
+      entityType: "network"
+  ) {
+    id
+    name
+    inep
+    entityType
+    parentId
+  }
+}
+```
+
+* Atualizar uma entidade
+
+
+```
+mutation updateEntity($id: ID!){
+  updateEntity(
+      id: $id,
+      name: "update entity network",
+      inep: "inep",
+      entityType: "school"
+  ) {
+    id
+    name
+    inep
+    entityType
+    parentId
+  }
+}
+```
+
+* Deletar uma entidade
+
+```
+mutation deleteEntity($id: ID!){
+    deleteEntity(id: $id) {
+        id
+        name
+        inep
+        entityType
+        parentId
+    }
+}
+```
+
 </details>
 <details>
   <summary>Tecnologias utilizadas</summary>

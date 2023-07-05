@@ -581,7 +581,9 @@
         }
       },
       "example": {
-        "jwt": "asdf..iweoie"
+        "data": {
+          "jwt": "asdf..iweoie"
+        }
       },
       "description": "return of login"
     },

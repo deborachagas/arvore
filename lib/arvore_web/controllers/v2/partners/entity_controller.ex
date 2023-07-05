@@ -8,7 +8,7 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
   action_fallback ArvoreWeb.FallbackController
 
   use PhoenixSwagger
-
+  # coveralls-ignore-start
   swagger_path :index do
     get("/api/v2/partners/entities")
     description("List entities")
@@ -91,6 +91,7 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
     response(404, "Not found")
   end
 
+  # coveralls-ignore-stop
   def index(conn, _) do
     entities = Partners.list_entities()
     render(conn, "index.json", entities: entities)
@@ -135,6 +136,7 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
     end
   end
 
+  # coveralls-ignore-start
   def swagger_definitions do
     %{
       Entity:
@@ -181,4 +183,6 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
         end
     }
   end
+
+  # coveralls-ignore-stop
 end

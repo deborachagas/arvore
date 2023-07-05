@@ -8,6 +8,7 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
 
   use PhoenixSwagger
 
+  # coveralls-ignore-start
   swagger_path :index do
     get("/api/v1/accounts/users")
     description("List users")
@@ -88,6 +89,7 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
     response(404, "Not found")
   end
 
+  # coveralls-ignore-stop
   def index(conn, _) do
     users = Accounts.list_users()
     render(conn, "index.json", users: users)
@@ -143,6 +145,7 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
     end
   end
 
+  # coveralls-ignore-start
   def swagger_definitions do
     %{
       User:
@@ -192,4 +195,6 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
         end
     }
   end
+
+  # coveralls-ignore-stop
 end
