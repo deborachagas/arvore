@@ -1,5 +1,6 @@
 - [Case Técnico Árvore](#case-tecnico-arvore)
 - [Configurar o projeto](#configurar-o-projeto)
+- [Documentação API](#documentacao-api)
 - [Funcionamento](#funcionamento)
 - [Tecnologias utilizadas](#tecnologias-utilizadas)
 
@@ -236,10 +237,15 @@ basta ir até o navegador e acessar a página:
 
 [http://localhost:4000/health](http://localhost:4000/health)
 
+# Documentação da api
+
+[https://teste-debora-arvore.fly.dev/api/swagger](https://teste-debora-arvore.fly.dev/api/swagger)
 
 # Funcionamento
 
-## Endereço API:
+## Documentação API:
+
+Documentação da api gerado com o plug phoenix_swagger:
 
 [https://teste-debora-arvore.fly.dev/health](https://teste-debora-arvore.fly.dev/health)
 
