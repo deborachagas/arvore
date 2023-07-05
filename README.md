@@ -241,7 +241,7 @@ basta ir até o navegador e acessar a página:
 
 [http://localhost:4000/health](http://localhost:4000/health)
 
-</detail>
+</details>
 <details>
   <summary>Documentação da API</summary>
 
@@ -377,7 +377,7 @@ GET: https://teste-debora-arvore.fly.dev/graphiql
     ]
   }
 ```
-</detail>
+</details>
 <details>
   <summary>Tecnologias utilizadas</summary>
 
