@@ -1,9 +1,3 @@
-- [Case Técnico Árvore](#case-tecnico-arvore)
-- [Configurar o projeto](#configurar-o-projeto)
-- [Documentação API](#documentacao-api)
-- [Funcionamento](#funcionamento)
-- [Tecnologias utilizadas](#tecnologias-utilizadas)
-
 <details>
   <summary>Case Técnico Árvore</summary>
 
@@ -248,83 +242,9 @@ basta ir até o navegador e acessar a página:
 Documentação da api gerado com o plug phoenix_swagger:
 [https://teste-debora-arvore.fly.dev/api/swagger](https://teste-debora-arvore.fly.dev/api/swagger)
 
-</detail>
+</details>
 <details>
-  <summary>Funcionamento</summary>
-
-
-[https://teste-debora-arvore.fly.dev/health](https://teste-debora-arvore.fly.dev/health)
-
-## Cadastrar um usuário
-
-```
-POST:https://teste-debora-arvore.fly.dev/api/v1/accounts/users
-Body:
-{
-    "name": "name",
-    "login": "login",
-    "password": "password",
-    "type": "admin",
-    "email": "email@email.com"
-}
-Response:
-{
-  "data": {
-      "email": "email@email.com",
-      "id": 1,
-      "login": "login",
-      "name": "name",
-      "type": "admin"
-    }
-}
-```
-
-## Login
-
-```
-POST:https://teste-debora-arvore.fly.dev/api/v1/accounts/login
-Headers:
-  { Content-Type: application/json }
-Body:
-  {
-      "login": "login",
-      "password": "password"
-  }
-Response:
-  {
-    "data":
-      {
-        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
-      }
-  }
-```
-
-## Acesso API com autenticação exemplo
-
-Usar o token gerado pelo endpoint de login
-
-```
-GET: https://teste-debora-arvore.fly.dev/api/v2/partners/entities/:id_entity
-  Headers:
-  {
-    Content-Type: application/json
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...rMy7OsEW0m6lByqs83I42q8XaY4yreNNQO0oQje8"
-  }
-
-Response:
-  {
-    "data": {
-      "id": 2,
-      "entity_type": "school",
-      "inep": "123456",
-      "name": "Escola Exemplo",
-      "parent_id": null,
-      "subtree_ids": [3, 4]
-    }
-  }
-```
-
-## Acesso API graphiql exemplo
+  <summary>API Graphiql exemplo</summary>
 
 Usar o token gerado pelo endpoint de login
 
@@ -395,4 +315,4 @@ GET: https://teste-debora-arvore.fly.dev/graphiql
     - Autorização da API com token JWT utilizando um plug na rota
     - Autenticação do jwt utilizando o plug joken
   - Implementação de graphiql utilizando plug absinthe
-</detail>
+</details>
