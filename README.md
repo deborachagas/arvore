@@ -223,7 +223,7 @@ mix deps.get
 config :arvore, Arvore.Repo,
   username: "root",
   password: "mysql",
-  database: "arvore_prod",
+  database: "arvore_dev",
   hostname: "db_mysql",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
