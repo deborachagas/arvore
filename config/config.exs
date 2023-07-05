@@ -12,7 +12,7 @@ config :arvore,
 
 # Configures the endpoint
 config :arvore, ArvoreWeb.Endpoint,
-  url: [host: "https://teste-debora-arvore.fly.dev/"],
+  url: [host: "localhost"],
   render_errors: [view: ArvoreWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Arvore.PubSub,
   live_view: [signing_salt: "wzuMxz7V"]
