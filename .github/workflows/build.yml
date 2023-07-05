@@ -79,9 +79,22 @@ jobs:
         run: |
           postman collection run arvore-test.postman_collection.json
 
+  test-load:
+    name: Load Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Run local k6 test
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: priv/k6/load-test.js
+
   deploy:
     name: Deploy app
-    needs: [test-integration, test-e2e]
+    needs: [test-integration, test-load, test-e2e]
     runs-on: ubuntu-latest
     if: ${{ success() }}
     steps:

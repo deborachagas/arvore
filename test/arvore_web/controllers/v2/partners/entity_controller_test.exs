@@ -194,19 +194,10 @@ defmodule ArvoreWeb.Partners.EntityControllerTest do
     end
 
     test "return json entity when deleted", %{conn: conn, entity: entity} do
-      response =
-        conn
-        |> delete(Routes.entity_path(conn, :delete, entity.id))
-        |> json_response(:ok)
+      conn = delete(conn, Routes.entity_path(conn, :delete, entity.id))
+      assert response(conn, :no_content)
 
-      assert response["data"] == %{
-               "entity_type" => entity.entity_type,
-               "id" => response["data"]["id"],
-               "inep" => entity.inep,
-               "name" => entity.name,
-               "parent_id" => entity.parent_id,
-               "subtree_ids" => []
-             }
+      assert nil == Partners.get_entity(entity.id)
     end
 
     test "return errors when entity has associated data", %{conn: conn, entity: entity} do

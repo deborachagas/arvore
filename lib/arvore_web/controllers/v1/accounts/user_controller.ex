@@ -77,7 +77,7 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
       id(:integer, 1, "User ID", required: true)
     end
 
-    response(200, "Success", Schema.ref(:User))
+    response(204, "No Content")
     response(404, "Not found")
   end
 
@@ -124,10 +124,8 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
 
   def delete(conn, %{"id" => id}) do
     with %User{} = user <- Accounts.get_user(id),
-         {:ok, user} <- Accounts.delete_user(user) do
-      conn
-      |> put_status(:ok)
-      |> render("show.json", user: user)
+         {:ok, _user} <- Accounts.delete_user(user) do
+      send_resp(conn, :no_content, "")
     else
       nil -> {:error, :not_found}
     end

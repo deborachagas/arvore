@@ -87,7 +87,7 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
       id(:integer, 1, "Entity ID", required: true)
     end
 
-    response(200, "Success", Schema.ref(:Entity))
+    response(204, "No Content")
     response(404, "Not found")
   end
 
@@ -126,10 +126,8 @@ defmodule ArvoreWeb.V2.Partners.EntityController do
 
   def delete(conn, %{"id" => id}) do
     with %Entity{} = entity <- Partners.get_entity(id),
-         {:ok, entity} <- Partners.delete_entity(entity) do
-      conn
-      |> put_status(:ok)
-      |> render("show.json", entity: entity)
+         {:ok, _entity} <- Partners.delete_entity(entity) do
+      send_resp(conn, :no_content, "")
     else
       nil -> {:error, :not_found}
       {:error, changeset} -> {:error, changeset}

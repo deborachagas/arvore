@@ -302,10 +302,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"status test\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"validate json response\", function () {",
-									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"    pm.response.to.have.status(204);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -861,19 +858,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"status test\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"validate json response\", function () {",
-									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
-									"});",
-									"",
-									"var jsonData = pm.response.json().data;",
-									"pm.test(\"validate entity values\", function () {   ",
-									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"new-entity-id\")); ",
-									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"new-entity-name\"));",
-									"    pm.expect(jsonData.inep).to.eql(pm.environment.get(\"new-entity-inep\"));",
-									"    pm.expect(jsonData.parent_id).to.eql(pm.environment.get(\"new-entity-parent-id\"));",
-									"    pm.expect(jsonData.entity_type).to.eql(pm.environment.get(\"new-entity-type\"));",
+									"    pm.response.to.have.status(204);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -973,10 +958,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"status test\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"validate json response\", function () {",
-									"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"    pm.response.to.have.status(204);",
 									"});"
 								],
 								"type": "text/javascript"

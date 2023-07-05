@@ -64,7 +64,8 @@ defmodule Arvore.MixProject do
       {:mock, "~> 0.3.8", only: :test},
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"},
-      {:poison, "~> 3.0"}
+      {:poison, "~> 3.0"},
+      {:k6, "~> 0.2.0"}
     ]
   end
 

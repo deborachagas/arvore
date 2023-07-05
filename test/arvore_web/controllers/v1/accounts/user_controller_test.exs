@@ -160,18 +160,10 @@ defmodule ArvoreWeb.V1.Accounts.UserControllerTest do
     end
 
     test "return json user when deleted", %{conn: conn, user: user} do
-      response =
-        conn
-        |> delete(Routes.user_path(conn, :delete, user.id))
-        |> json_response(:ok)
+      conn = delete(conn, Routes.user_path(conn, :delete, user.id))
+      assert response(conn, :no_content)
 
-      assert response["data"] == %{
-               "email" => user.email,
-               "id" => response["data"]["id"],
-               "login" => user.login,
-               "name" => user.name,
-               "type" => user.type
-             }
+      assert nil == Accounts.get_user(user.id)
     end
 
     test "return not found error message when id not exists", %{conn: conn} do

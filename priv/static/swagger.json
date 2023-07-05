@@ -119,11 +119,8 @@
           "404": {
             "description": "Not found"
           },
-          "200": {
-            "schema": {
-              "$ref": "#/definitions/Entity"
-            },
-            "description": "Success"
+          "204": {
+            "description": "No Content"
           }
         },
         "parameters": [
@@ -321,11 +318,8 @@
           "404": {
             "description": "Not found"
           },
-          "200": {
-            "schema": {
-              "$ref": "#/definitions/User"
-            },
-            "description": "Success"
+          "204": {
+            "description": "No Content"
           }
         },
         "parameters": [
@@ -498,7 +492,7 @@
       "email": "deb.chagas@gmail.com"
     }
   },
-  "host": "https://teste-debora-arvore.fly.dev",
+  "host": "localhost:4000",
   "definitions": {
     "Users": {
       "type": "array",
