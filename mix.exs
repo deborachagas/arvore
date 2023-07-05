@@ -61,7 +61,10 @@ defmodule Arvore.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       {:absinthe, "~> 1.7.3", override: true},
       {:absinthe_plug, "~> 1.5"},
-      {:mock, "~> 0.3.8", only: :test}
+      {:mock, "~> 0.3.8", only: :test},
+      {:phoenix_swagger, "~> 0.8"},
+      {:ex_json_schema, "~> 0.5"},
+      {:poison, "~> 3.0"}
     ]
   end
 

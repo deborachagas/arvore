@@ -5,6 +5,24 @@ defmodule ArvoreWeb.V1.Accounts.AuthenticationController do
 
   action_fallback ArvoreWeb.FallbackController
 
+  use PhoenixSwagger
+
+  swagger_path :login do
+    get("/api/v1/accounts/login")
+    description("User Login")
+    tag("Authentication")
+    produces("application/json")
+
+    parameters do
+      login(:string, "user_login", "User login", required: true)
+      password(:string, "password", "User password", required: true)
+    end
+
+    response(201, "Created")
+    response(404, "User not found")
+    response(400, "Invalid password")
+  end
+
   def login(conn, params) do
     with login when not is_nil(login) <- Map.get(params, "login", nil),
          password when not is_nil(password) <- Map.get(params, "password", nil),
@@ -16,5 +34,23 @@ defmodule ArvoreWeb.V1.Accounts.AuthenticationController do
       nil -> {:error, :not_found}
       error -> error
     end
+  end
+
+  def swagger_definitions do
+    %{
+      Login:
+        swagger_schema do
+          title("Login")
+          description("return of login")
+
+          properties do
+            jwt(:string, "jwt", required: true)
+          end
+
+          example(%{
+            jwt: "asdf..iweoie"
+          })
+        end
+    }
   end
 end

@@ -1,0 +1,652 @@
+{
+  "tags": [
+    {
+      "name": "Entity",
+      "description": "Entity resources"
+    }
+  ],
+  "swagger": "2.0",
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "API JWT Token must be provided via `Authorization: Bearer ` header"
+    }
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v2/partners/entities/{id}": {
+      "put": {
+        "tags": [
+          "Entity"
+        ],
+        "summary": "",
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            },
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": 1,
+            "required": true,
+            "name": "id",
+            "in": "integer",
+            "description": "Entity ID"
+          },
+          {
+            "type": "Entity Name",
+            "required": false,
+            "name": "name",
+            "in": "string",
+            "description": "Name of entity"
+          },
+          {
+            "type": "networ",
+            "required": false,
+            "name": "entity_type",
+            "in": "string",
+            "description": "Type of entity, can be: network, school or class"
+          },
+          {
+            "type": "323",
+            "required": false,
+            "name": "inep",
+            "in": "string",
+            "description": "Identifier of school, is required only for entity type school"
+          },
+          {
+            "type": 1,
+            "required": false,
+            "name": "parent_id",
+            "in": "integer",
+            "description": "Entity parent. Entity type network, parent_id must be null. Entity type school, parent_id must be type network. Entity type class, parent_id must be school"
+          }
+        ],
+        "operationId": "ArvoreWeb.V2.Partners.EntityController.update",
+        "description": "Update entity"
+      },
+      "get": {
+        "tags": [
+          "Entity"
+        ],
+        "summary": "",
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            },
+            "description": "Ok"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": 1,
+            "required": true,
+            "name": "id",
+            "in": "integer",
+            "description": "Entity ID"
+          }
+        ],
+        "operationId": "ArvoreWeb.V2.Partners.EntityController.show",
+        "description": "Get entity by id"
+      },
+      "delete": {
+        "tags": [
+          "Entity"
+        ],
+        "summary": "",
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            },
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": 1,
+            "required": true,
+            "name": "id",
+            "in": "integer",
+            "description": "Entity ID"
+          }
+        ],
+        "operationId": "ArvoreWeb.V2.Partners.EntityController.delete",
+        "description": "Delete entity"
+      }
+    },
+    "/api/v2/partners/entities": {
+      "post": {
+        "tags": [
+          "Entity"
+        ],
+        "summary": "",
+        "responses": {
+          "422": {
+            "description": "Unproccessable entity"
+          },
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            },
+            "description": "Created"
+          }
+        },
+        "parameters": [
+          {
+            "type": "Entity Name",
+            "required": true,
+            "name": "name",
+            "in": "string",
+            "description": "Name of entity"
+          },
+          {
+            "type": "networ",
+            "required": true,
+            "name": "entity_type",
+            "in": "string",
+            "description": "Type of entity, can be: network, school or class"
+          },
+          {
+            "type": "323",
+            "required": false,
+            "name": "inep",
+            "in": "string",
+            "description": "Identifier of school, is required only for entity type school"
+          },
+          {
+            "type": 1,
+            "required": false,
+            "name": "parent_id",
+            "in": "integer",
+            "description": "Entity parent. Entity type network, parent_id must be null. Entity type school, parent_id must be type network. Entity type class, parent_id must be school"
+          }
+        ],
+        "operationId": "ArvoreWeb.V2.Partners.EntityController.create",
+        "description": "Create entity"
+      },
+      "get": {
+        "tags": [
+          "Entity"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Entities"
+            },
+            "description": "Ok"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "operationId": "ArvoreWeb.V2.Partners.EntityController.index",
+        "description": "List entities"
+      }
+    },
+    "/api/v1/accounts/users/{id}": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "User id",
+            "required": true,
+            "name": "id",
+            "in": "string",
+            "description": "ID of user"
+          },
+          {
+            "type": "User Name",
+            "required": false,
+            "name": "name",
+            "in": "string",
+            "description": "Name of user"
+          },
+          {
+            "type": "user_login",
+            "required": false,
+            "name": "login",
+            "in": "string",
+            "description": "Login of user"
+          },
+          {
+            "type": "user@email.com",
+            "required": false,
+            "name": "email",
+            "in": "string",
+            "description": "Email of user"
+          },
+          {
+            "type": "password",
+            "required": false,
+            "name": "password",
+            "in": "string",
+            "description": "Login of user"
+          },
+          {
+            "type": "admin or entity",
+            "required": false,
+            "name": "type",
+            "in": "string",
+            "description": "Typ of user"
+          },
+          {
+            "type": 1,
+            "required": false,
+            "name": "entity_id",
+            "in": "integer",
+            "description": "Entity from user"
+          }
+        ],
+        "operationId": "ArvoreWeb.V1.Accounts.UserController.update",
+        "description": "Update user"
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "description": "Ok"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": 1,
+            "required": true,
+            "name": "id",
+            "in": "integer",
+            "description": "User ID"
+          }
+        ],
+        "operationId": "ArvoreWeb.V1.Accounts.UserController.show",
+        "description": "Get user by id"
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": 1,
+            "required": true,
+            "name": "id",
+            "in": "integer",
+            "description": "User ID"
+          }
+        ],
+        "operationId": "ArvoreWeb.V1.Accounts.UserController.delete",
+        "description": "Delete user"
+      }
+    },
+    "/api/v1/accounts/users/me": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "operationId": "ArvoreWeb.V1.Accounts.UserController.me",
+        "description": "Information from authenticated user"
+      }
+    },
+    "/api/v1/accounts/users": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {
+          "422": {
+            "description": "Unproccessable user"
+          },
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "description": "Created"
+          }
+        },
+        "parameters": [
+          {
+            "type": "User Name",
+            "required": true,
+            "name": "name",
+            "in": "string",
+            "description": "Name of user"
+          },
+          {
+            "type": "user_login",
+            "required": true,
+            "name": "login",
+            "in": "string",
+            "description": "Login of user"
+          },
+          {
+            "type": "user@email.com",
+            "required": true,
+            "name": "email",
+            "in": "string",
+            "description": "Email of user"
+          },
+          {
+            "type": "password",
+            "required": true,
+            "name": "password",
+            "in": "string",
+            "description": "Login of user"
+          },
+          {
+            "type": "admin",
+            "required": true,
+            "name": "type",
+            "in": "string",
+            "description": "Typ of user"
+          },
+          {
+            "type": 1,
+            "required": false,
+            "name": "entity_id",
+            "in": "integer",
+            "description": "Entity from user"
+          }
+        ],
+        "operationId": "ArvoreWeb.V1.Accounts.UserController.create",
+        "description": "Create user"
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Users"
+            },
+            "description": "Ok"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "operationId": "ArvoreWeb.V1.Accounts.UserController.index",
+        "description": "List users"
+      }
+    },
+    "/api/v1/accounts/login": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "",
+        "responses": {
+          "404": {
+            "description": "User not found"
+          },
+          "400": {
+            "description": "Invalid password"
+          },
+          "201": {
+            "description": "Created"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "user_login",
+            "required": true,
+            "name": "login",
+            "in": "string",
+            "description": "User login"
+          },
+          {
+            "type": "password",
+            "required": true,
+            "name": "password",
+            "in": "string",
+            "description": "User password"
+          }
+        ],
+        "operationId": "ArvoreWeb.V1.Accounts.AuthenticationController.login",
+        "description": "User Login"
+      }
+    }
+  },
+  "info": {
+    "version": "1.0",
+    "title": "API Árvore",
+    "description": "API Documentation for Árvore v2",
+    "contact": {
+      "name": "Débora Chagas",
+      "email": "deb.chagas@gmail.com"
+    }
+  },
+  "host": "localhost:4000",
+  "definitions": {
+    "Users": {
+      "type": "array",
+      "title": "Users",
+      "items": {
+        "$ref": "#/definitions/User"
+      },
+      "example": {
+        "data": [
+          {
+            "type": "admin",
+            "name": "Name User",
+            "login": "user_login",
+            "id": 2,
+            "entity_id": 1,
+            "email": "user@email.com"
+          }
+        ]
+      },
+      "description": "A collection of Users"
+    },
+    "User": {
+      "type": "object",
+      "title": "User",
+      "required": [
+        "email",
+        "type",
+        "login",
+        "name",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of user"
+        },
+        "name": {
+          "type": "string",
+          "description": "User name"
+        },
+        "login": {
+          "type": "string",
+          "description": "User login"
+        },
+        "id": {
+          "type": "integer",
+          "description": "User id"
+        },
+        "entity_id": {
+          "type": "integer",
+          "description": "Id from entity"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of user"
+        }
+      },
+      "example": {
+        "data": {
+          "type": "admin",
+          "name": "Name User",
+          "login": "user_login",
+          "id": 2,
+          "entity_id": 1,
+          "email": "user@email.com"
+        }
+      },
+      "description": "A user of the application"
+    },
+    "Login": {
+      "type": "object",
+      "title": "Login",
+      "required": [
+        "jwt"
+      ],
+      "properties": {
+        "jwt": {
+          "type": "string",
+          "description": "jwt"
+        }
+      },
+      "example": {
+        "jwt": "asdf..iweoie"
+      },
+      "description": "return of login"
+    },
+    "Entity": {
+      "type": "object",
+      "title": "Entity",
+      "required": [
+        "entity_type",
+        "name",
+        "id"
+      ],
+      "properties": {
+        "parent_id": {
+          "type": "integer",
+          "description": "Entity id parent"
+        },
+        "name": {
+          "type": "string",
+          "description": "Entity name"
+        },
+        "inep": {
+          "type": "string",
+          "description": "Inep"
+        },
+        "id": {
+          "type": "id",
+          "description": "Entity id"
+        },
+        "entity_type": {
+          "type": "string",
+          "description": "Entity type"
+        }
+      },
+      "example": {
+        "data": {
+          "parent_id": 1,
+          "name": "School",
+          "inep": "inep",
+          "id": 2,
+          "entity_type": "school"
+        }
+      },
+      "description": "A entity of the application"
+    },
+    "Entities": {
+      "type": "array",
+      "title": "Entities",
+      "items": {
+        "$ref": "#/definitions/Entity"
+      },
+      "example": {
+        "data": [
+          {
+            "parent_id": 1,
+            "name": "School",
+            "inep": "inep",
+            "id": 2,
+            "entity_type": "school"
+          }
+        ]
+      },
+      "description": "A collection of Entities"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ]
+}

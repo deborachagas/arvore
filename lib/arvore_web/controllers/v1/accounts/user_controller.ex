@@ -6,6 +6,88 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
 
   action_fallback ArvoreWeb.FallbackController
 
+  use PhoenixSwagger
+
+  swagger_path :index do
+    get("/api/v1/accounts/users")
+    description("List users")
+    tag("User")
+    produces("application/json")
+    response(200, "Ok", Schema.ref(:Users))
+  end
+
+  swagger_path :show do
+    get("/api/v1/accounts/users/{id}")
+    description("Get user by id")
+    tag("User")
+
+    parameters do
+      id(:integer, 1, "User ID", required: true)
+    end
+
+    produces("application/json")
+    response(200, "Ok", Schema.ref(:User))
+    response(404, "Not found")
+  end
+
+  swagger_path :create do
+    post("/api/v1/accounts/users")
+    description("Create user")
+    tag("User")
+
+    parameters do
+      name(:string, "User Name", "Name of user", required: true)
+      login(:string, "user_login", "Login of user", required: true)
+      email(:string, "user@email.com", "Email of user", required: true)
+      password(:string, "password", "Login of user", required: true)
+      type(:string, "admin", "Typ of user", required: true)
+      entity_id(:integer, 1, "Entity from user")
+    end
+
+    response(201, "Created", Schema.ref(:User))
+    response(422, "Unproccessable user")
+  end
+
+  swagger_path :update do
+    put("/api/v1/accounts/users/{id}")
+    description("Update user")
+    tag("User")
+
+    parameters do
+      id(:string, "User id", "ID of user", required: true)
+      name(:string, "User Name", "Name of user")
+      login(:string, "user_login", "Login of user")
+      email(:string, "user@email.com", "Email of user")
+      password(:string, "password", "Login of user")
+      type(:string, "admin or entity", "Typ of user")
+      entity_id(:integer, 1, "Entity from user")
+    end
+
+    response(200, "Success", Schema.ref(:User))
+    response(404, "Not found")
+  end
+
+  swagger_path :delete do
+    PhoenixSwagger.Path.delete("/api/v1/accounts/users/{id}")
+    description("Delete user")
+    tag("User")
+
+    parameters do
+      id(:integer, 1, "User ID", required: true)
+    end
+
+    response(200, "Success", Schema.ref(:User))
+    response(404, "Not found")
+  end
+
+  swagger_path :me do
+    get("/api/v1/accounts/users/me")
+    description("Information from authenticated user")
+    tag("User")
+    response(200, "Success", Schema.ref(:User))
+    response(404, "Not found")
+  end
+
   def index(conn, _) do
     users = Accounts.list_users()
     render(conn, "index.json", users: users)
@@ -59,5 +141,55 @@ defmodule ArvoreWeb.V1.Accounts.UserController do
       nil ->
         {:error, :not_found}
     end
+  end
+
+  def swagger_definitions do
+    %{
+      User:
+        swagger_schema do
+          title("User")
+          description("A user of the application")
+
+          properties do
+            id(:integer, "User id", required: true)
+            name(:string, "User name", required: true)
+            login(:string, "User login", required: true)
+            type(:string, "Type of user", required: true)
+            email(:string, "Email of user", required: true)
+            entity_id(:integer, "Id from entity")
+          end
+
+          example(%{
+            data: %{
+              id: 2,
+              name: "Name User",
+              login: "user_login",
+              email: "user@email.com",
+              type: "admin",
+              entity_id: 1
+            }
+          })
+        end,
+      Users:
+        swagger_schema do
+          title("Users")
+          description("A collection of Users")
+          type(:array)
+          items(Schema.ref(:User))
+
+          example(%{
+            data: [
+              %{
+                id: 2,
+                name: "Name User",
+                login: "user_login",
+                email: "user@email.com",
+                type: "admin",
+                entity_id: 1
+              }
+            ]
+          })
+        end
+    }
   end
 end

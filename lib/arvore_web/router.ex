@@ -49,4 +49,38 @@ defmodule ArvoreWeb.Router do
       end
     end
   end
+
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI,
+      otp_app: :arvore,
+      swagger_file: "swagger.json"
+  end
+
+  def swagger_info do
+    %{
+      schemes: ["http", "https"],
+      info: %{
+        version: "1.0",
+        title: "API Árvore",
+        description: "API Documentation for Árvore v2",
+        contact: %{
+          name: "Débora Chagas",
+          email: "deb.chagas@gmail.com"
+        }
+      },
+      securityDefinitions: %{
+        Bearer: %{
+          type: "apiKey",
+          name: "Authorization",
+          description: "API JWT Token must be provided via `Authorization: Bearer ` header",
+          in: "header"
+        }
+      },
+      consumes: ["application/json"],
+      produces: ["application/json"],
+      tags: [
+        %{name: "Entity", description: "Entity resources"}
+      ]
+    }
+  end
 end
