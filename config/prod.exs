@@ -12,7 +12,7 @@ config :arvore, Arvore.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-config :my_app, MyApp.Web.Endpoint,
+config :arvore, Arvore.Web.Endpoint,
   # Expects url host and port to be configured in Endpoint.init callback
   load_from_system_env: true,
   url: [host: "https://teste-debora-arvore.fly.dev", port: 80]
