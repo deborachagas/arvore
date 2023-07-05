@@ -257,9 +257,11 @@ Documentação da api gerado com o plug phoenix_swagger:
 </details>
 <details>
   <summary>Acesso API</summary>
-1 - Criar um usuário, para isso não é necessário estar autenticado - [documentacao](https://teste-debora-arvore.fly.dev/api/swagger/index.html#/User/ArvoreWeb_V1_Accounts_UserController_create)
-2 - Logar na api com o usuário criado - [documentacao](https://teste-debora-arvore.fly.dev/api/swagger/index.html#/Authentication/ArvoreWeb_V1_Accounts_AuthenticationController_login)
-3 - Passar o jwt gerado no header Authorization "Bearer Token"
+
+- Criar um usuário, para isso não é necessário estar autenticado - [link](https://teste-debora-arvore.fly.dev/api/swagger/index.html#/User/ArvoreWeb_V1_Accounts_UserController_create)
+- Logar na api com o usuário criado - [link](https://teste-debora-arvore.fly.dev/api/swagger/index.html#/Authentication/ArvoreWeb_V1_Accounts_AuthenticationController_login)
+- Passar o jwt gerado no header Authorization "Bearer Token"
+
 </details>
 <details>
   <summary>API Graphiql exemplo</summary>
@@ -267,7 +269,7 @@ Documentação da api gerado com o plug phoenix_swagger:
 * Usar o token gerado pelo endpoint de login no header Authorization "Bearer Token"
 * POST: https://teste-debora-arvore.fly.dev/graphiql
 
-# Queries:
+### Queries:
 
 * Listar todos as entidades
 
