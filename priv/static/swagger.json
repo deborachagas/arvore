@@ -498,7 +498,7 @@
       "email": "deb.chagas@gmail.com"
     }
   },
-  "host": "https://teste-debora-arvore.fly.dev/:4000",
+  "host": "https://teste-debora-arvore.fly.dev",
   "definitions": {
     "Users": {
       "type": "array",
