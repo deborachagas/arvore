@@ -78,7 +78,7 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
   test-e2e:
-    name: E2E Teste
+    name: E2E Test
     needs: [deploy]
     runs-on: ubuntu-latest
     steps:
@@ -90,7 +90,7 @@ jobs:
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
         run: |
-          postman collection run arvore-test.postman_collection.json
+          postman collection run priv/postman/arvore-test.postman_collection.json
 
   test-load:
     name: Load Test
