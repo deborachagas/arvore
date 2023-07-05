@@ -146,7 +146,7 @@ Body:
 
 </details>
 <details>
-  <summary>Configurar o projeto</summary>
+  <summary>Rodar o projeto usando o docker</summary>
 
 * Clonar o projeto
 
@@ -159,8 +159,6 @@ git clone https://github.com/deborachagas/arvore.git
 ```
 cd arvore
 ```
-
-## Rodar o projeto usando o docker:
 
 * Pré-requisitos:
 
@@ -191,7 +189,21 @@ basta ir até o navegador e acessar a página:
 http://localhost:4000/health
 ```
 
-## Rodar o projeto localmente:
+</details>
+<details>
+  <summary>Rodar o projeto localmente</summary>
+
+* Clonar o projeto
+
+```
+git clone https://github.com/deborachagas/arvore.git
+```
+
+* Acessar a pasta do projeto:
+
+```
+cd arvore
+```
 
 * Pré-requisitos:
 
