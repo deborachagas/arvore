@@ -373,12 +373,15 @@ mutation deleteEntity($id: ID!){
   - Docker para rodar container do banco de dados mysql e do elixir
   - Testes Automatizados, validação da cobertura de código com o plug excoveralls - [TOTAL]  96.4%
   - Testes E2E utilizando o Postman
+  - Testes de carga utilizando o k6
   - Validação da estrutura do código com o plug credo
   - Github CI para integração contínua
     - Faz o build da aplicação
     - Faz os testes automatizados
-    - Faz os testes E2E
-    - Caso de tudo certo realiza o deploy da aplicação no fly.io, se não passar, não faz o deploy
+    - Caso de certo realiza o deploy da aplicação no fly.io, se não passar, não faz o deploy
+    - Depois de finalizar o deploy:
+      - Faz os testes E2E
+      - Faz os testes de carga
   - Autenticação da API
     - Criptografia da senha do usuário com o plug bcrypt_elixir
     - Autorização da API com token JWT utilizando um plug na rota

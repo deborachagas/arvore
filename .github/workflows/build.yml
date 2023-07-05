@@ -65,8 +65,21 @@ jobs:
       - name: Run tests
         run: mix coveralls.lcov --warnings-as-errors | sed -e ':a' -e 'N' -e '$!ba' -e 's/\(\(WARNING:\ Deleting data for module\|Analysis includes data from imported files\)[^]]*]\n\)//g'; exit ${PIPESTATUS[0]}
 
+  deploy:
+    name: Deploy app
+    needs: [test-integration]
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
   test-e2e:
-    name: Árvore Teste E2E
+    name: E2E Teste
+    needs: [deploy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -81,8 +94,8 @@ jobs:
 
   test-load:
     name: Load Test
+    needs: [deploy]
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -91,15 +104,3 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           filename: priv/k6/load-test.js
-
-  deploy:
-    name: Deploy app
-    needs: [test-integration, test-load, test-e2e]
-    runs-on: ubuntu-latest
-    if: ${{ success() }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
