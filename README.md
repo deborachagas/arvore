@@ -4,7 +4,8 @@
 - [Funcionamento](#funcionamento)
 - [Tecnologias utilizadas](#tecnologias-utilizadas)
 
-# Case Técnico Árvore
+<details>
+  <summary>Case Técnico Árvore</summary>
 
 ## Objetivo:
 
@@ -148,7 +149,10 @@ Body:
 
 - GraphQL (schema pode refletir a mesma estrutura acima)
 - Testes de carga
-# Configurar o projeto
+
+</details>
+<details>
+  <summary>Configurar o projeto</summary>
 
 * Clonar o projeto
 
@@ -237,15 +241,17 @@ basta ir até o navegador e acessar a página:
 
 [http://localhost:4000/health](http://localhost:4000/health)
 
-# Documentação da api
-
-[https://teste-debora-arvore.fly.dev/api/swagger](https://teste-debora-arvore.fly.dev/api/swagger)
-
-# Funcionamento
-
-## Documentação API:
+</detail>
+<details>
+  <summary>Documentação da API</summary>
 
 Documentação da api gerado com o plug phoenix_swagger:
+[https://teste-debora-arvore.fly.dev/api/swagger](https://teste-debora-arvore.fly.dev/api/swagger)
+
+</detail>
+<details>
+  <summary>Funcionamento</summary>
+
 
 [https://teste-debora-arvore.fly.dev/health](https://teste-debora-arvore.fly.dev/health)
 
@@ -371,20 +377,22 @@ GET: https://teste-debora-arvore.fly.dev/graphiql
     ]
   }
 ```
+</detail>
+<details>
+  <summary>Tecnologias utilizadas</summary>
 
-# Tecnologias utilizadas
-
-- Docker para rodar container do banco de dados mysql e do elixir
-- Testes Automatizados, validação da cobertura de código com o plug excoveralls - [TOTAL]  96.4%
-- Testes E2E utilizando o Postman
-- Validação da estrutura do código com o plug credo
-- Github CI para integração contínua
-  - Faz o build da aplicação
-  - Faz os testes automatizados
-  - Faz os testes E2E
-  - Caso de tudo certo realiza o deploy da aplicação no fly.io, se não passar, não faz o deploy
-- Autenticação da API
-  - Criptografia da senha do usuário com o plug bcrypt_elixir
-  - Autorização da API com token JWT utilizando um plug na rota
-  - Autenticação do jwt utilizando o plug joken
-- Implementação de graphiql utilizando plug absinthe
+  - Docker para rodar container do banco de dados mysql e do elixir
+  - Testes Automatizados, validação da cobertura de código com o plug excoveralls - [TOTAL]  96.4%
+  - Testes E2E utilizando o Postman
+  - Validação da estrutura do código com o plug credo
+  - Github CI para integração contínua
+    - Faz o build da aplicação
+    - Faz os testes automatizados
+    - Faz os testes E2E
+    - Caso de tudo certo realiza o deploy da aplicação no fly.io, se não passar, não faz o deploy
+  - Autenticação da API
+    - Criptografia da senha do usuário com o plug bcrypt_elixir
+    - Autorização da API com token JWT utilizando um plug na rota
+    - Autenticação do jwt utilizando o plug joken
+  - Implementação de graphiql utilizando plug absinthe
+</detail>
