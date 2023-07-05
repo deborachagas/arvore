@@ -47,9 +47,9 @@ defmodule ArvoreWeb.V1.Accounts.AuthenticationController do
             jwt(:string, "jwt", required: true)
           end
 
-          example(%{
+          example(%{data: %{
             jwt: "asdf..iweoie"
-          })
+          }})
         end
     }
   end
